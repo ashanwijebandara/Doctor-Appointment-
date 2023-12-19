@@ -10,12 +10,26 @@ class DoctorDetails extends StatefulWidget {
 }
 
 class _DoctorDetailsState extends State<DoctorDetails> {
+  bool isFav = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Doctor Details',
         icon: FaIcon(Icons.arrow_back),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                isFav = !isFav;
+              });
+            },
+            icon: FaIcon(
+              isFav ? Icons.favorite_rounded : Icons.favorite_outline,
+              color: Colors.red,
+            ),
+          )
+        ],
       ),
     );
   }
