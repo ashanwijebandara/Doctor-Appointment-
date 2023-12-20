@@ -106,7 +106,7 @@ class _BookingPageState extends State<BookingPage> {
                     childAspectRatio: 1.5,
                   ),
                 ),
-                // hgjg
+               
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.symmetric(
