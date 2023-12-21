@@ -8,7 +8,6 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      
       onPressed: () {},
       child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
