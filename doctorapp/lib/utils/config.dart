@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// constant config
 class Config {
   static MediaQueryData? mediaQueryData;
   static double? screenWidth;
@@ -50,5 +51,5 @@ class Config {
     borderRadius: BorderRadius.all(Radius.circular(8)),
   );
 
-  static const primaryColor = Colors.greenAccent;
+  static const primaryColor = Color(0xFF1597D5);
 }

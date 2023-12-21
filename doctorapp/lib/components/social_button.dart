@@ -8,6 +8,7 @@ class SocialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+      
       onPressed: () {},
       child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
@@ -17,7 +18,7 @@ class SocialButton extends StatelessWidget {
               Image.asset(
                 'assets/$social.png',
                 width: 40,
-                height: 40,
+                height: 30,
               ),
               Text(
                 social.toUpperCase(),

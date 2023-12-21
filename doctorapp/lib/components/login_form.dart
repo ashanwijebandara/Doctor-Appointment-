@@ -6,6 +6,7 @@ class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
+
   State<LoginForm> createState() => _LoginFormState();
 }
 
@@ -57,7 +58,7 @@ class _LoginFormState extends State<LoginForm> {
                         )
                       : const Icon(
                           Icons.visibility_outlined,
-                          color: Colors.greenAccent,
+                          color: Color(0xFF1597D5),
                         ))),
         ),
         Config.spaceSmall,
