@@ -54,21 +54,40 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
-                    'Ashan',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage('assets/profile1.jpg'),
                   ),
+                  Config.spacehorizontal_medium,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Welcome Back,',
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFFADA4A5)),
+                      ),
+                      Text(
+                        'Hi Jenny',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  /*
                   SizedBox(
                     child: CircleAvatar(
                       radius: 30,
                       backgroundImage: AssetImage('assets/profile1.jpg'),
                     ),
-                  )
+                  )*/
                 ],
               ),
               Config.spaceMedium,

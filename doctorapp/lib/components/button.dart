@@ -19,16 +19,21 @@ class Button extends StatelessWidget {
     return SizedBox(
       width: width,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Config.primaryColor,
-          foregroundColor: Colors.white
-        ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Config.primaryColor,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  0.0), // Set your desired border radius here
+            ),
+          ),
           onPressed: disable ? null : onPressed,
           child: Text(
             title,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Source Sans Pro',
             ),
           )),
     );

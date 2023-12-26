@@ -16,7 +16,7 @@ class _startingPageState extends State<StartingPage> {
     // Simulate a loading delay
     Future.delayed(Duration(seconds: 5), () {
       // After the delay, navigate to the home screen
-      Navigator.of(context).pushNamed('/');
+      Navigator.of(context).pushNamed('/register');
       //Navigator.pushReplacementNamed(context, '/');
     });
   }

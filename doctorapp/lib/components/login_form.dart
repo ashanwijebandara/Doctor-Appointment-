@@ -6,7 +6,6 @@ class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
   @override
-
   State<LoginForm> createState() => _LoginFormState();
 }
 
@@ -61,10 +60,10 @@ class _LoginFormState extends State<LoginForm> {
                           color: Color(0xFF1597D5),
                         ))),
         ),
-        Config.spaceSmall,
+        Config.spaceMedium,
         Button(
             width: double.infinity,
-            title: 'Sign In',
+            title: 'Sign In', 
             onPressed: () {
               Navigator.of(context).pushNamed('main');
             },

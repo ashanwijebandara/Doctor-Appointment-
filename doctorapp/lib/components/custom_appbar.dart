@@ -54,7 +54,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             )
           : null,
-          actions: widget.actions ?? null,
+      actions: widget.actions ?? null,
     );
   }
 }

@@ -22,7 +22,7 @@ class Config {
 
   // define spacing height
   static const spaceSmall = SizedBox(
-    height: 25,
+    height: 20,
   );
   static final spaceMedium = SizedBox(
     height: screenHeight! * 0.05,
@@ -30,6 +30,13 @@ class Config {
 
   static final spaceBig = SizedBox(
     height: screenHeight! * 0.08,
+  );
+
+  static final spacehorizontal_small = SizedBox(
+    width: 5,
+  );
+  static final spacehorizontal_medium = SizedBox(
+    width: 10,
   );
 
   //textform field border
@@ -40,7 +47,7 @@ class Config {
 
   static const focusBorder = OutlineInputBorder(
     borderSide: BorderSide(
-      color: Colors.greenAccent,
+      color: Color(0xFF1597D5),
     ),
     borderRadius: BorderRadius.all(Radius.circular(8)),
   );

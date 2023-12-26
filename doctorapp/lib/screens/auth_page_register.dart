@@ -1,17 +1,17 @@
-import 'package:doctorapp/components/login_form.dart';
+import 'package:doctorapp/components/register_form.dart';
 import 'package:doctorapp/components/social_button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:doctorapp/utils/text.dart';
 import 'package:flutter/material.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+class AuthPageRegister extends StatefulWidget {
+  const AuthPageRegister({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthPageRegister> createState() => _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthPageState extends State<AuthPageRegister> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
@@ -26,7 +26,7 @@ class _AuthPageState extends State<AuthPage> {
             //Config.spaceSmall,
             Center(
               child: Text(
-                AppText.enText['signIn']!,
+                AppText.enText['signUp']!,
                 style: const TextStyle(
                   fontFamily: 'Source Sans Pro',
                   fontSize: 30,
@@ -47,7 +47,7 @@ class _AuthPageState extends State<AuthPage> {
                     textStyle: const TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,
-                      fontSize: 16, // Adjust the font size as needed
+                      fontSize: 16,
                     ),
                   ),
                   child: Text('Sign In'),
@@ -61,7 +61,7 @@ class _AuthPageState extends State<AuthPage> {
                     textStyle: const TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,
-                      fontSize: 16, // Adjust the font size as needed
+                      fontSize: 16,
                     ),
                   ),
                   child: Text('Sign Up'),
@@ -69,14 +69,14 @@ class _AuthPageState extends State<AuthPage> {
               ],
             ),
             Config.spaceSmall,
-            const LoginForm(),
+            const RegisterForm(),
             Config.spaceSmall,
             /*
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppText.enText['signUp_text']!,
+                  AppText.enText['signIn_text']!,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -84,7 +84,7 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                 ),
                 const Text(
-                  ' Sign Up',
+                  ' Sign In',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -106,14 +106,6 @@ class _AuthPageState extends State<AuthPage> {
               ),
             ),
             Config.spaceSmall,
-            /*
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SocialButton(social: 'google'),
-                SocialButton(social: 'facebook'),
-              ],
-            ),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -144,8 +136,18 @@ class _AuthPageState extends State<AuthPage> {
                 // Add more SocialButton widgets as needed
               ],
             ),
+            /*
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                //SocialButton(social: 'google'),
+                //SocialButton(social: 'facebook'),
+              ],
+            ),*/
             Config.spaceSmall,
-            Image.asset('assets/downpic.jpg'),
+            Image.asset(
+              'assets/downpic.jpg',
+            ),
           ],
         )),
       ),

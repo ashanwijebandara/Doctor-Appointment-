@@ -18,24 +18,28 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
       "doctor_name": "Richard Tan",
       "doctor_profile": "assets/doctor_1.jpg",
       "category": "Dental",
+      "hospital": "Amaya Hospital",
       "status": FilterStatus.upcoming
     },
     {
       "doctor_name": "Max Lim",
       "doctor_profile": "assets/doctor_1.jpg",
       "category": "Cardiology",
+      "hospital": "Amaya Hospital",
       "status": FilterStatus.complete
     },
     {
       "doctor_name": "Jane Wong",
       "doctor_profile": "assets/doctor_1.jpg",
       "category": "Dental",
+      "hospital": "Amaya Hospital",
       "status": FilterStatus.complete
     },
     {
       "doctor_name": "Jenny Song",
       "doctor_profile": "assets/doctor_1.jpg",
       "category": "Dental",
+      "hospital": "Amaya Hospital",
       "status": FilterStatus.cancel
     }
   ];
@@ -158,11 +162,12 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
                         Row(
                           children: [
                             CircleAvatar(
+                              radius: 25,
                               backgroundImage:
                                   AssetImage(_schedule['doctor_profile']),
                             ),
                             const SizedBox(
-                              width: 10,
+                              width: 20,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,18 +176,35 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
                                   _schedule['doctor_name'],
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Text(
-                                  _schedule['category'],
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      _schedule['category'],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        //fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Config.spacehorizontal_small,
+                                    Text(
+                                      '|',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    Config.spacehorizontal_small,
+                                    Text(
+                                      _schedule['hospital'],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        //fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             )
@@ -200,6 +222,14 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
                           children: [
                             Expanded(
                               child: OutlinedButton(
+                                style: ButtonStyle(
+                                  side: MaterialStateProperty.all<BorderSide>(
+                                    BorderSide(
+                                      color: Colors.red, // Set border color
+                                      width: 1.0, // Set line thickness
+                                    ),
+                                  ),
+                                ),
                                 onPressed: () {},
                                 child: Text(
                                   'Cancel',
@@ -254,7 +284,7 @@ class ScheduleCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Icon(
-              Icons.calendar_today,
+              Icons.calendar_month_outlined,
               color: Config.primaryColor,
               size: 15,
             ),
