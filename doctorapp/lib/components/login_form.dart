@@ -26,6 +26,7 @@ class _LoginFormState extends State<LoginForm> {
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
             hintText: 'Email Address',
+            hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
             labelText: 'Email',
             alignLabelWithHint: true,
             prefixIcon: Icon(Icons.email_outlined),
@@ -40,6 +41,7 @@ class _LoginFormState extends State<LoginForm> {
           obscureText: obsecurePass,
           decoration: InputDecoration(
               hintText: 'Password',
+              hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
               labelText: 'Password',
               alignLabelWithHint: true,
               prefixIcon: Icon(Icons.lock_outline),

@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +26,7 @@ class _RegisterFormState extends State<RegisterForm> {
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
             hintText: 'Email Address',
+            hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
             labelText: 'Email',
             alignLabelWithHint: true,
             prefixIcon: Icon(Icons.email_outlined),
@@ -41,6 +40,7 @@ class _RegisterFormState extends State<RegisterForm> {
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
             hintText: 'User Name',
+            hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
             labelText: 'User Name',
             alignLabelWithHint: true,
             prefixIcon: Icon(Icons.account_circle_outlined),
@@ -55,6 +55,7 @@ class _RegisterFormState extends State<RegisterForm> {
           obscureText: obsecurePass,
           decoration: InputDecoration(
               hintText: 'Password',
+              hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
               labelText: 'Password',
               alignLabelWithHint: true,
               prefixIcon: Icon(Icons.lock_outline),
@@ -87,4 +88,3 @@ class _RegisterFormState extends State<RegisterForm> {
     );
   }
 }
->>>>>>> Stashed changes

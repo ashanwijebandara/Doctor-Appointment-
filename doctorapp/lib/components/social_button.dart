@@ -9,11 +9,7 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
-    return OutlinedButton(
-=======
     return TextButton(
->>>>>>> Stashed changes
       onPressed: () {},
       child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.1,
@@ -25,13 +21,6 @@ class SocialButton extends StatelessWidget {
                 width: 30,
                 height: 30,
               ),
-              /*
-              Text(
-                social.toUpperCase(),
-                style: const TextStyle(
-                  color: Colors.black,
-                ),
-              )*/
             ],
           )),
     );

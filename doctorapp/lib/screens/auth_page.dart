@@ -19,135 +19,100 @@ class _AuthPageState extends State<AuthPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: SafeArea(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //Config.spaceSmall,
-            Center(
-              child: Text(
-                AppText.enText['signIn']!,
-                style: const TextStyle(
-                  fontFamily: 'Source Sans Pro',
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  AppText.enText['signIn']!,
+                  style: const TextStyle(
+                    fontFamily: 'Source Sans Pro',
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-            Config.spaceSmall,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    print('Sign Up button pressed!');
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    textStyle: const TextStyle(
-                      fontFamily: 'Source Sans Pro',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16, // Adjust the font size as needed
+              Config.spaceSmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      print('Sign Up button pressed!');
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      textStyle: const TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
                     ),
+                    child: Text('Sign In'),
                   ),
-                  child: Text('Sign In'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    print('Sign Up button pressed!');
-                  },
-                  style: TextButton.styleFrom(
-                    primary: Colors.black,
-                    textStyle: const TextStyle(
-                      fontFamily: 'Source Sans Pro',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16, // Adjust the font size as needed
+                  TextButton(
+                    onPressed: () {
+                      print('Sign Up button pressed!');
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                      textStyle: const TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
                     ),
+                    child: Text('Sign Up'),
                   ),
-                  child: Text('Sign Up'),
-                ),
-              ],
-            ),
-            Config.spaceSmall,
-            const LoginForm(),
-            Config.spaceSmall,
-            /*
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppText.enText['signUp_text']!,
+                ],
+              ),
+              Config.spaceSmall,
+              const LoginForm(),
+              Config.spaceSmall,
+              const Spacer(),
+              Center(
+                child: Text(
+                  AppText.enText['social-login']!,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
                     color: Colors.grey.shade500,
                   ),
                 ),
-                const Text(
-                  ' Sign Up',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            */
-            const Spacer(),
-            Center(
-              child: Text(
-                AppText.enText['social-login']!,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.grey.shade500,
-                ),
               ),
-            ),
-            Config.spaceSmall,
-            /*
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SocialButton(social: 'google'),
-                SocialButton(social: 'facebook'),
-              ],
-            ),*/
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SocialButton(
-                    social: 'google',
-                    onPressed: () {
-                      // Handle Google button click
-                      print('Google button clicked');
-                    }),
-                SocialButton(
-                    social: 'facebook',
-                    onPressed: () {
-                      // Handle Google button click
-                      print('Google button clicked');
-                    }),
-                SocialButton(
-                    social: 'twitter',
-                    onPressed: () {
-                      // Handle Google button click
-                      print('Google button clicked');
-                    }),
-                SocialButton(
-                    social: 'linkdin',
-                    onPressed: () {
-                      // Handle Google button click
-                      print('Google button clicked');
-                    }), // No specific action
-                // Add more SocialButton widgets as needed
-              ],
-            ),
-            Config.spaceSmall,
-            Image.asset('assets/downpic.jpg'),
-          ],
-        )),
+              Config.spaceSmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SocialButton(
+                      social: 'google',
+                      onPressed: () {
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'facebook',
+                      onPressed: () {
+                        // Handle Google button click
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'twitter',
+                      onPressed: () {
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'linkdin',
+                      onPressed: () {
+                        print('Google button clicked');
+                      }),
+                ],
+              ),
+              Config.spaceSmall,
+              Image.asset('assets/downpic.jpg'),
+            ],
+          ),
+        ),
       ),
     );
   }

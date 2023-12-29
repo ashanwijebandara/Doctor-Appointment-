@@ -23,7 +23,6 @@ class _AuthPageState extends State<AuthPageRegister> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //Config.spaceSmall,
             Center(
               child: Text(
                 AppText.enText['signUp']!,
@@ -71,29 +70,6 @@ class _AuthPageState extends State<AuthPageRegister> {
             Config.spaceSmall,
             const RegisterForm(),
             Config.spaceSmall,
-            /*
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppText.enText['signIn_text']!,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.grey.shade500,
-                  ),
-                ),
-                const Text(
-                  ' Sign In',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            */
             const Spacer(),
             Center(
               child: Text(
@@ -136,14 +112,6 @@ class _AuthPageState extends State<AuthPageRegister> {
                 // Add more SocialButton widgets as needed
               ],
             ),
-            /*
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                //SocialButton(social: 'google'),
-                //SocialButton(social: 'facebook'),
-              ],
-            ),*/
             Config.spaceSmall,
             Image.asset(
               'assets/downpic.jpg',

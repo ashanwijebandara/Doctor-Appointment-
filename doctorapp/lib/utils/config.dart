@@ -51,6 +51,7 @@ class Config {
     ),
     borderRadius: BorderRadius.all(Radius.circular(8)),
   );
+
   static const errorBorder = OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.red,
@@ -58,5 +59,5 @@ class Config {
     borderRadius: BorderRadius.all(Radius.circular(8)),
   );
 
-  static const primaryColor = Color(0xFF1597D5);
+  static const primaryColor = Color(0xFF1596D5);
 }
