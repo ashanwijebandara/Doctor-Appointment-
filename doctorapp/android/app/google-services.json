@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006962405275",
+    "project_id": "doctor-appointment-booki-b0ed3",
+    "storage_bucket": "doctor-appointment-booki-b0ed3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006962405275:android:86e426e25748796554bb3e",
+        "android_client_info": {
+          "package_name": "com.example.doctorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0X7uk7lf5zkxapOUSAGSOj9OVZFHECFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
