@@ -55,9 +55,21 @@ class _MainLayoutState extends State<MainLayout> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
+              FontAwesomeIcons.solidHeart,
+            ),
+            label: 'Favourite',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
               FontAwesomeIcons.solidCalendarCheck,
             ),
             label: 'Appoinments',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.solidUser,
+            ),
+            label: 'Profile',
           ),
         ],
       ),
