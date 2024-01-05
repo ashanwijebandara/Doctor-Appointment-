@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                       route: 'doc_details',
                     );
                   }),
-                )
+                ),
               ],
             ),
           ),

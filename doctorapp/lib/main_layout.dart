@@ -1,5 +1,8 @@
 import 'package:doctorapp/screens/appoinment_page.dart';
+import 'package:doctorapp/screens/articles_page.dart';
+import 'package:doctorapp/screens/fav_doctor_page.dart';
 import 'package:doctorapp/screens/home_page.dart';
+import 'package:doctorapp/screens/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -30,6 +33,9 @@ class _MainLayoutState extends State<MainLayout> {
         children: const [
           HomePage(),
           AppoinmentPage(),
+          Favourite_Doctor_Page(),
+          ArticlePage(),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -55,15 +61,21 @@ class _MainLayoutState extends State<MainLayout> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.solidHeart,
-            ),
-            label: 'Favourite',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
               FontAwesomeIcons.solidCalendarCheck,
             ),
             label: 'Appoinments',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.userDoctor,
+            ),
+            label: 'Doctor',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.newspaper,
+            ),
+            label: 'Articles',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
