@@ -6,9 +6,18 @@ import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:doctorapp/screens/starting_page.dart';
 import 'package:doctorapp/screens/success_booked.dart';
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyB0WRPB6EhbCW_pci7K-ZPj2QROhcndcaY',
+        appId: "1:1006962405275:web:ee723ebb5aa1ac2054bb3e",
+        messagingSenderId: '1006962405275',
+        projectId: 'doctor-appointment-booki-b0ed3'),
+  ); //initialize firebase
   runApp(const MyApp());
 }
 
@@ -58,4 +67,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
