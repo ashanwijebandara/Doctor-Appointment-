@@ -105,7 +105,7 @@ class _AuthPageState extends State<AuthPageRegister> {
                       print('Google button clicked');
                     }),
                 SocialButton(
-                    social: 'linkdin',
+                    social: 'linkedin',
                     onPressed: () {
                       // Handle Google button click
                       print('Google button clicked');
