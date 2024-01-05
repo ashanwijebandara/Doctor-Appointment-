@@ -15,6 +15,7 @@ class _AuthPageState extends State<AuthPageRegister> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -56,7 +57,7 @@ class _AuthPageState extends State<AuthPageRegister> {
                     print('Sign Up button pressed!');
                   },
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
+                    foregroundColor: Colors.black,
                     textStyle: const TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,

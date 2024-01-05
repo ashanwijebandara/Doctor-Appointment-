@@ -1,6 +1,7 @@
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -80,7 +81,9 @@ class _RegisterFormState extends State<RegisterForm> {
         Button(
             width: double.infinity,
             title: 'Sign Up',
-            onPressed: () {
+            onPressed: () async{
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: _emailController.text, password: _passController.text);
               Navigator.of(context).pushNamed('/');
             },
             disable: false),
