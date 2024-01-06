@@ -1,4 +1,5 @@
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -17,14 +18,14 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Container(
                 width: double.infinity,
-                color: Config.primaryColor,
+                decoration: BoxDecoration(
+                  gradient: Config.primaryGradient,
+                ),
                 child: const Column(children: [
-                  SizedBox(
-                    height: 20,
-                  ),
+                  Config.spaceSmall,
                   Text(
                     'My Profile',
                     style: TextStyle(
@@ -33,41 +34,31 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  Config.spaceSmall,
                   CircleAvatar(
                     radius: 50,
                     backgroundImage: AssetImage('assets/profile1.jpg'),
                   ),
                   Config.spaceSmall,
-                  Text(
-                    'Jenny Tan',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
                 ]),
               ),
             ),
             Expanded(
               flex: 8,
               child: Container(
-                color: Colors.grey[300],
+                color: Colors.white,
                 child: Center(
                   child: Column(
                     children: [
                       Card(
-                        margin: const EdgeInsets.fromLTRB(0, 45, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: SizedBox(
                           width: 300,
-                          height: 200,
+                          height: 185,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Column(
-                              children: const [
+                              children: [
                                 Text(
                                   'Profile ',
                                   style: TextStyle(
@@ -81,22 +72,85 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.grey,
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Name        : ',
+                                      style: TextStyle(fontSize: 16),
                                     ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    /*
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Profile',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),*/
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Jenny Tan',
+                                      style: TextStyle(fontSize: 15),
+                                    )
                                   ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Age           : ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      '23',
+                                      style: TextStyle(fontSize: 15),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Gender      : ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Female',
+                                      style: TextStyle(fontSize: 15),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Address    : ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    Config.spacehorizontal_medium,
+                                    const Text(
+                                      'Jalan 1/1 , Taman Sri Pulai ',
+                                      style: TextStyle(fontSize: 15),
+                                    )
+                                  ],
+                                ),
+                                OutlinedButton(
+                                  onPressed: () async {
+                                    await FirebaseAuth.instance.signOut();
+                                    Navigator.of(context).pushNamed('/');
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor:
+                                        Config.primaryColor, // Text color
+                                    side: BorderSide(
+                                        color: Config
+                                            .primaryColor), // Border color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          18.0), // Border radius
+                                    ),
+                                    minimumSize: Size(
+                                        100, 30), // button width and height
+                                  ),
+                                  child: Text(
+                                    'Edit Profile',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ],
                             ),
@@ -104,16 +158,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Card(
-                        margin: const EdgeInsets.fromLTRB(0, 45, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: SizedBox(
                           width: 300,
-                          height: 200,
+                          height: 120,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
                             child: Column(
-                              children: const [
+                              children: [
                                 Text(
-                                  'Profile ',
+                                  'App Details',
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w800,
@@ -126,25 +180,62 @@ class _ProfilePageState extends State<ProfilePage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      Icons.person,
+                                      Icons.language,
                                       color: Colors.grey,
                                     ),
-                                    SizedBox(
-                                      width: 20,
+                                    Config.spacehorizontal_large,
+                                    const Text(
+                                      'Language   : ',
+                                      style: TextStyle(fontSize: 16),
                                     ),
-                                    /*
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'Profile',
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),*/
+                                    const Text(
+                                      'English ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Icon(
+                                      Icons.code,
+                                      color: Colors.grey,
+                                    ),
+                                    Config.spacehorizontal_large,
+                                    const Text(
+                                      'Version       : ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                    const Text(
+                                      '2.3 ',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                           ),
+                        ),
+                      ),
+                      Config.spaceBig,
+                      OutlinedButton(
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.of(context).pushNamed('/');
+                        },
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Config.primaryColor, // Text color
+                          side: BorderSide(
+                              color: Config.primaryColor), // Border color
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), // Border radius
+                          ),
+                          minimumSize: Size(300, 40), // button width and height
+                        ),
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(fontSize: 16),
                         ),
                       ),
                     ],

@@ -18,7 +18,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Doctor Details',
-        icon: FaIcon(Icons.arrow_back),
+        icon: FaIcon(
+          Icons.arrow_back_ios_rounded,
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -28,7 +30,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             },
             icon: FaIcon(
               isFav ? Icons.favorite_rounded : Icons.favorite_outline,
-              color: Colors.red,
+              color: Config.primaryColor,
             ),
           )
         ],
@@ -39,9 +41,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           children: [
             AboutDoctor(),
             DetailBody(),
-            //const Spacer(),
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.only(
+                right: 20,
+                left: 20,
+              ),
               child: Button(
                 width: double.infinity,
                 title: 'Book Appointment',
@@ -66,8 +70,16 @@ class AboutDoctor extends StatelessWidget {
     Config().init(context);
     return Container(
       width: double.infinity,
+      decoration: BoxDecoration(
+        gradient: Config.primaryGradient,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        ),
+      ),
       child: Column(
         children: [
+          Config.spaceSmall,
           const CircleAvatar(
             radius: 55,
             backgroundImage: AssetImage('assets/doctor_1.jpg'),
@@ -130,7 +142,7 @@ class DetailBody extends StatelessWidget {
           const DoctorInfo(),
           Config.spaceMedium,
           Text(
-            'About Doctor',
+            'About Me',
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
@@ -145,7 +157,68 @@ class DetailBody extends StatelessWidget {
             ),
             softWrap: true,
             textAlign: TextAlign.justify,
-          )
+          ),
+          Config.spaceSmall,
+          Text(
+            'Working Information',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Config.spaceSmall,
+          const ScheduleInfo(),
+        ],
+      ),
+    );
+  }
+}
+
+class ScheduleInfo extends StatelessWidget {
+  const ScheduleInfo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Icon(
+                Icons.calendar_month_outlined,
+                color: Colors.blue,
+                size: 15,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                'Monday - Friday, 08:00 AM - 05:00 PM',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
+          Config.spaceSmall,
+          Row(
+            children: [
+              const Icon(
+                Icons.location_on_outlined,
+                color: Colors.blue,
+                size: 15,
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                '13th Street. Amaya Hospital , COlombo Road , Kandy',
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -194,10 +267,11 @@ class InfoCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Config.primaryColor,
+          //gradient: Config.primaryGradient,
+          color: Colors.grey.shade100,
         ),
         padding: const EdgeInsets.symmetric(
-          vertical: 30,
+          vertical: 20,
           horizontal: 15,
         ),
         child: Column(
@@ -216,7 +290,7 @@ class InfoCard extends StatelessWidget {
             Text(
               value,
               style: TextStyle(
-                color: Colors.white,
+                color: Config.primaryColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w800,
               ),

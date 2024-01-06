@@ -33,7 +33,25 @@ class _BookingPageState extends State<BookingPage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
-                _tableCalendar(),
+                Text(
+                  'Select a date',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                      decoration: BoxDecoration(
+                        gradient: Config.primaryGradient_LeftToRight,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: _tableCalendar(),
+                      )),
+                ),
                 const Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 10,
@@ -106,7 +124,7 @@ class _BookingPageState extends State<BookingPage> {
                     childAspectRatio: 1.5,
                   ),
                 ),
-                // hgjg
+          // hgjg
           SliverToBoxAdapter(
             child: Container(
               padding: const EdgeInsets.symmetric(

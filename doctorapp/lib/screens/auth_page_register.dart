@@ -40,10 +40,10 @@ class _AuthPageState extends State<AuthPageRegister> {
               children: [
                 TextButton(
                   onPressed: () {
-                    print('Sign Up button pressed!');
+                    print('Sign In button pressed!');
                   },
                   style: TextButton.styleFrom(
-                    primary: Colors.black,
+                    foregroundColor: Colors.black,
                     textStyle: const TextStyle(
                       fontFamily: 'Source Sans Pro',
                       fontWeight: FontWeight.w600,

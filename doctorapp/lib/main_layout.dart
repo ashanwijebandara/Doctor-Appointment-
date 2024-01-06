@@ -30,11 +30,11 @@ class _MainLayoutState extends State<MainLayout> {
             },
           );
         }),
-        children: const [
+        children: [
           HomePage(),
           AppoinmentPage(),
           Favourite_Doctor_Page(),
-          ArticlePage(),
+          ArticleListPage(),
           ProfilePage(),
         ],
       ),

@@ -29,22 +29,21 @@ class AppoinmentBooked extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 20,
-            ),
-            child: Button (
-              width: double.infinity,
-              title: 'Back to Home',
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/',
-                  (route) => false,
-                );
-              },
-              disable: false,
-            )
-          )
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 20,
+              ),
+              child: Button(
+                width: double.infinity,
+                title: 'Back to Home',
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    'main',
+                    (route) => false,
+                  );
+                },
+                disable: false,
+              ))
         ],
       )),
     );
