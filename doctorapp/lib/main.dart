@@ -3,6 +3,8 @@ import 'package:doctorapp/screens/auth_page.dart';
 import 'package:doctorapp/screens/auth_page_register.dart';
 import 'package:doctorapp/screens/booking_page.dart';
 import 'package:doctorapp/screens/doctor_details.dart';
+import 'package:doctorapp/screens/edit_profile_page.dart';
+import 'package:doctorapp/screens/profile_page.dart';
 import 'package:doctorapp/screens/starting_page.dart';
 import 'package:doctorapp/screens/success_booked.dart';
 import 'package:doctorapp/utils/config.dart';
@@ -63,6 +65,8 @@ class MyApp extends StatelessWidget {
         'doc_details': (context) => const DoctorDetails(),
         'booking_page': (context) => const BookingPage(),
         'success_booking': (context) => const AppoinmentBooked(),
+        'profile': (context) => const ProfilePage(),
+        'edit_profile': (context) => const EditProfilePage(),
       },
     );
   }

@@ -19,36 +19,36 @@ class Article {
 class ArticleListPage extends StatelessWidget {
   final List<Article> articles = [
     Article(
-      title: 'Heart Health',
-      author: 'John Doe',
-      date: 'January 1, 2023',
+      title: 'Improved Sleep',
+      author: 'Harry Swith',
+      date: 'February 20, 2023',
       image: 'assets/Article1.png',
       body:
-          'Regular physical activity improves cardiovascular health, strengthens the heart, and reduces the risk of heart diseases.',
-    ),
-    Article(
-      title: 'Bone Health',
-      author: 'Jane Smith',
-      date: 'February 15, 2023',
-      image: 'assets/Article2.jpg',
-      body:
-          'Weight-bearing exercises contribute to bone health, maintaining density and reducing the risk of osteoporosis.',
+          'Regular physical activity helps regulate sleep cycles, offering a non-pharmacological approach to managing sleep disorders.',
     ),
     Article(
       title: 'Increased Energy Levels',
       author: 'Jone Kale',
       date: 'June 2, 2023',
-      image: 'assets/Article3.jpg',
+      image: 'assets/Article2.jpg',
       body:
           'Exercise boosts energy levels, improving cardiovascular efficiency and overall stamina.',
     ),
     Article(
-      title: 'Improved Sleep',
-      author: 'Harry Swith',
-      date: 'February 20, 2023',
+      title: 'Bone Health',
+      author: 'Jane Smith',
+      date: 'February 15, 2023',
+      image: 'assets/Article3.jpg',
+      body:
+          'Weight-bearing exercises contribute to bone health, maintaining density and reducing the risk of osteoporosis.',
+    ),
+    Article(
+      title: 'Heart Health',
+      author: 'John Doe',
+      date: 'January 1, 2023',
       image: 'assets/Article4.png',
       body:
-          'Regular physical activity helps regulate sleep cycles, offering a non-pharmacological approach to managing sleep disorders.',
+          'Regular physical activity improves cardiovascular health, strengthens the heart, and reduces the risk of heart diseases.',
     ),
   ];
 

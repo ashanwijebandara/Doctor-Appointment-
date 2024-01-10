@@ -132,7 +132,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 OutlinedButton(
                                   onPressed: () async {
                                     await FirebaseAuth.instance.signOut();
-                                    Navigator.of(context).pushNamed('/');
+                                    Navigator.of(context)
+                                        .pushNamed('edit_profile');
                                   },
                                   style: OutlinedButton.styleFrom(
                                     foregroundColor:

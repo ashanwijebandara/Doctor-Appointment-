@@ -1,5 +1,6 @@
 import 'package:doctorapp/screens/appoinment_page.dart';
 import 'package:doctorapp/screens/articles_page.dart';
+//import 'package:doctorapp/screens/edit_profile_page.dart';
 import 'package:doctorapp/screens/fav_doctor_page.dart';
 import 'package:doctorapp/screens/home_page.dart';
 import 'package:doctorapp/screens/profile_page.dart';
@@ -36,6 +37,7 @@ class _MainLayoutState extends State<MainLayout> {
           Favourite_Doctor_Page(),
           ArticleListPage(),
           ProfilePage(),
+          //EditProfilePage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

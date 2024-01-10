@@ -46,7 +46,10 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> filteredSchedules = schedules.where((var schedule) {
+    List<dynamic> filteredSchedules = schedules
+        .where((var schedule) => schedule['status'] == status)
+        .toList();
+   
       // switch (schedule['status']) {
       //   case 'upcoming':
       //     schedule['status'] = FilterStatus.upcoming;
@@ -58,8 +61,7 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
       //     schedule['status'] = FilterStatus.cancel;
       //     break;
       // }
-      return schedule['status'] == status;
-    }).toList();
+     
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(left: 20, top: 20, right: 20),
@@ -139,132 +141,323 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
             ),
             Config.spaceSmall,
             Expanded(
-                child: ListView.builder(
-              itemCount: filteredSchedules.length,
-              itemBuilder: (context, index) {
-                var _schedule = filteredSchedules[index];
-                bool isLastElement = filteredSchedules.length + 1 == index;
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Colors.grey,
-                    ),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  margin: !isLastElement
-                      ? const EdgeInsets.only(bottom: 20)
-                      : EdgeInsets.zero,
-                  child: Padding(
-                    padding: EdgeInsets.all(15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 25,
-                              backgroundImage:
-                                  AssetImage(_schedule['doctor_profile']),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  _schedule['doctor_name'],
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      _schedule['category'],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        //fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Config.spacehorizontal_small,
-                                    Text(
-                                      '|',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                    Config.spacehorizontal_small,
-                                    Text(
-                                      _schedule['hospital'],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        //fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const ScheduleCard(),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: OutlinedButton(
-                                style: ButtonStyle(
-                                  side: MaterialStateProperty.all<BorderSide>(
-                                    BorderSide(
-                                      color: Colors.red, // Set border color
-                                      width: 1.0, // Set line thickness
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  'Cancel',
-                                  style: TextStyle(color: Config.primaryColor),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            Expanded(
-                              child: OutlinedButton(
-                                style: OutlinedButton.styleFrom(
-                                  backgroundColor: Config.primaryColor,
-                                ),
-                                onPressed: () {},
-                                child: Text(
-                                  'Reshedule',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ))
+              child: _buildContent(filteredSchedules, status),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Widget _buildContent(List<dynamic> filteredSchedules, FilterStatus status) {
+  if (status == FilterStatus.upcoming) {
+    return _buildUpcomingContent(filteredSchedules);
+  } else if (status == FilterStatus.complete) {
+    return _buildCompleteContent(filteredSchedules);
+  } else if (status == FilterStatus.cancel) {
+    return _buildCancelContent(filteredSchedules);
+  }
+
+  return Container();
+}
+
+Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
+  return ListView.builder(
+    itemCount: filteredSchedules.length,
+    itemBuilder: (context, index) {
+      var _schedule = filteredSchedules[index];
+      bool isLastElement = filteredSchedules.length - 1 == index;
+
+      return Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: !isLastElement
+            ? const EdgeInsets.only(bottom: 20)
+            : EdgeInsets.zero,
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage(_schedule['doctor_profile']),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _schedule['doctor_name'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            _schedule['category'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            '|',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            _schedule['hospital'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const ScheduleCard(),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all<BorderSide>(
+                          BorderSide(
+                            color: Colors.red,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(color: Config.primaryColor),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Config.primaryColor,
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        'Reschedule',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget _buildCompleteContent(List<dynamic> filteredSchedules) {
+  return ListView.builder(
+    itemCount: filteredSchedules.length,
+    itemBuilder: (context, index) {
+      var _schedule = filteredSchedules[index];
+      bool isLastElement = filteredSchedules.length - 1 == index;
+
+      return Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: !isLastElement
+            ? const EdgeInsets.only(bottom: 20)
+            : EdgeInsets.zero,
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage(_schedule['doctor_profile']),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _schedule['doctor_name'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            _schedule['category'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            '|',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            _schedule['hospital'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const ScheduleCard(),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget _buildCancelContent(List<dynamic> filteredSchedules) {
+  return ListView.builder(
+    itemCount: filteredSchedules.length,
+    itemBuilder: (context, index) {
+      var _schedule = filteredSchedules[index];
+      bool isLastElement = filteredSchedules.length - 1 == index;
+
+      return Card(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: !isLastElement
+            ? const EdgeInsets.only(bottom: 20)
+            : EdgeInsets.zero,
+        child: Padding(
+          padding: EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: AssetImage(_schedule['doctor_profile']),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _schedule['doctor_name'],
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            _schedule['category'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            '|',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          Config.spacehorizontal_small,
+                          Text(
+                            _schedule['hospital'],
+                            style: TextStyle(
+                              color: Colors.black,
+                              //fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              const ScheduleCard(),
+              const SizedBox(
+                height: 15,
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }
 
 class ScheduleCard extends StatelessWidget {
