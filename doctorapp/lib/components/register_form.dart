@@ -1,6 +1,8 @@
+import 'package:doctorapp/components/auth_controller.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -12,17 +14,17 @@ class RegisterForm extends StatefulWidget {
 
 class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passController = TextEditingController();
+
   bool obsecurePass = true;
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
     return Form(
       key: _formKey,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         TextFormField(
-          controller: _emailController,
+          controller: controller.emailController,
           keyboardType: TextInputType.emailAddress,
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
@@ -36,7 +38,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         Config.spaceSmall,
         TextFormField(
-          controller: _emailController,
+          controller: controller.usernameController,
           keyboardType: TextInputType.emailAddress,
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
@@ -50,7 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         Config.spaceSmall,
         TextFormField(
-          controller: _passController,
+          controller: controller.passwordController,
           keyboardType: TextInputType.visiblePassword,
           cursorColor: Config.primaryColor,
           obscureText: obsecurePass,
@@ -81,11 +83,15 @@ class _RegisterFormState extends State<RegisterForm> {
         Button(
             width: double.infinity,
             title: 'Sign Up',
-            onPressed: () {
+            onPressed: () async {
+              await controller.signupUser();
+              if (controller.userCredential != null) {
+                Navigator.of(context).pushNamed('main');
+              }
               /*
               await FirebaseAuth.instance.createUserWithEmailAndPassword(
                   email: _emailController.text, password: _passController.text);*/
-              Navigator.of(context).pushNamed('/');
+              // Navigator.of(context).pushNamed('/');
             },
             disable: false),
       ]),
