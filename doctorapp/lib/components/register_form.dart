@@ -1,4 +1,4 @@
-import 'package:doctorapp/components/auth_controller.dart';
+import 'package:doctorapp/controllers/auth_controller.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';

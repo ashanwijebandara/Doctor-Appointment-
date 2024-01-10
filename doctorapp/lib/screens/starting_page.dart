@@ -1,3 +1,4 @@
+import 'package:doctorapp/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 //import 'package:doctorapp/screens/auth_page.dart';
 
@@ -11,6 +12,7 @@ class StartingPage extends StatefulWidget {
 class _startingPageState extends State<StartingPage> {
   @override
   void initState() {
+    AuthController().isUserAlreadyLoggedIn();
     super.initState();
 
     // Simulate a loading delay

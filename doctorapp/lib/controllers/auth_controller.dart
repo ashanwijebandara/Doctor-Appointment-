@@ -8,6 +8,17 @@ class AuthController extends GetxController {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   UserCredential? userCredential;
+
+  isUserAlreadyLoggedIn() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        Navigator.of(Get.context!).pushNamed('/');
+      } else {
+        Navigator.of(Get.context!).pushNamed('main');
+      }
+    });
+  }
+
   loginUser() async {
     userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);

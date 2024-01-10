@@ -1,6 +1,9 @@
+import 'package:doctorapp/controllers/auth_controller.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -11,17 +14,18 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passController = TextEditingController();
+
   bool obsecurePass = true;
+
   @override
   Widget build(BuildContext context) {
+    var controller = Get.put(AuthController());
     return Form(
       key: _formKey,
       child:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         TextFormField(
-          controller: _emailController,
+          controller: controller.emailController,
           keyboardType: TextInputType.emailAddress,
           cursorColor: Config.primaryColor,
           decoration: const InputDecoration(
@@ -35,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Config.spaceSmall,
         TextFormField(
-          controller: _passController,
+          controller: controller.passwordController,
           keyboardType: TextInputType.visiblePassword,
           cursorColor: Config.primaryColor,
           obscureText: obsecurePass,
@@ -65,9 +69,13 @@ class _LoginFormState extends State<LoginForm> {
         Config.spaceMedium,
         Button(
             width: double.infinity,
-            title: 'Sign In', 
-            onPressed: () {
-              Navigator.of(context).pushNamed('main');
+            title: 'Sign In',
+            onPressed: () async {
+              await controller.loginUser();
+              if (controller.userCredential != null) {
+                Navigator.of(context).pushNamed('main');
+              }
+              // Navigator.of(context).pushNamed('main');
             },
             disable: false),
       ]),

@@ -158,6 +158,26 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
+                      OutlinedButton(
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.of(context).pushNamed('/');
+                        },
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Config.primaryColor, // Text color
+                          side: BorderSide(
+                              color: Config.primaryColor), // Border color
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8.0), // Border radius
+                          ),
+                          minimumSize: Size(300, 40), // button width and height
+                        ),
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
                       Card(
                         margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: SizedBox(
