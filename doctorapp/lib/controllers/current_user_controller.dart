@@ -2,11 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
-class SettingsController extends GetxController {
+class CurrentUserController extends GetxController {
+  @override
+  void onInit() {
+    getData = getUserData();
+    super.onInit();
+  }
+
   var isLoading = false.obs;
   var currentUser = FirebaseAuth.instance.currentUser;
   var username = ''.obs;
   var email = ''.obs;
+  Future? getData;
 
   getUserData() async {
     DocumentSnapshot<Map<String, dynamic>> user = await FirebaseFirestore
@@ -16,6 +23,5 @@ class SettingsController extends GetxController {
         .get();
     var userData = user.data();
     username = userData!['username'] ?? "";
-    
   }
 }
