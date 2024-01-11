@@ -78,6 +78,30 @@ class Config {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
-  // Use the gradient as the primary color
+
+  static const primaryGradient_font = LinearGradient(
+    colors: [
+      Color(0xFF00264D),
+      Color(0xFF004080),
+      Color(0xFF0E639C),
+      Color(0xFF219CD8),
+      Color(0xFF71BCE7),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+/*
+  static const gradient_background = LinearGradient(
+    colors: [
+      Color(0xFFCCE6F3), // Light Blue
+      Color(0xFF87CAF0), // Blue
+      Color(0xFF71BCE7), // Dark Blue
+      Color(0xFF219CD8), // Very Dark Blue
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    stops: [0.0, 0.3, 0.7, 1.0],
+  );
+*/
   static const primaryColor = Color(0xFF1596D5);
 }

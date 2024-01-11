@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
         ),
       ),
-      initialRoute: '/register',
+      initialRoute: '/',
       routes: {
         //initial route page
         'start': (context) => const StartingPage(),
