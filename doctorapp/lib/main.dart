@@ -55,14 +55,14 @@ class MyApp extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
         ),
       ),
-      initialRoute: '/',
+      initialRoute: 'start',
       routes: {
         //initial route page
         'start': (context) => const StartingPage(),
         '/': (context) => const AuthPage(),
         '/register': (context) => const AuthPageRegister(),
         'main': (context) => const MainLayout(),
-        'doc_details': (context) => const DoctorDetails(),
+        // 'doc_details': (context) => const DoctorDetails(),
         'booking_page': (context) => const BookingPage(),
         'success_booking': (context) => const AppoinmentBooked(),
         'profile': (context) => const ProfilePage(),

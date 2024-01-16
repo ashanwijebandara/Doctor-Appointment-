@@ -17,9 +17,9 @@ class _startingPageState extends State<StartingPage> {
     super.initState();
 
     // Simulate a loading delay
-    Future.delayed(Duration(seconds: 50), () {
+    Future.delayed(Duration(seconds: 5), () {
       // After the delay, navigate to the home screen
-      Navigator.of(context).pushNamed('/register');
+      Navigator.of(context).pushNamed('/');
       //Navigator.pushReplacementNamed(context, '/');
     });
   }

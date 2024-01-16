@@ -1,10 +1,24 @@
 //import 'package:doctorapp/utils/config.dart';
+import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({Key? key, required this.route}) : super(key: key);
+  const DoctorCard(
+      {Key? key,
+      
+      required this.imgRoute,
+      required this.doctorName,
+      required this.doctorCategory,
+      required this.doctorHospital})
+      : super(key: key);
 
-  final String route;
+  final String imgRoute;
+  
+  final String doctorName;
+  final String doctorCategory;
+  final String doctorHospital;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,17 +35,9 @@ class DoctorCard extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            /*
-            SizedBox(
-              width: Config.widthsize * 0.33,
-              child: Image.asset(
-                'assets/doctor_1.jpg',
-                fit: BoxFit.fill,
-              ),
-            ),*/
             CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('assets/doctor_1.jpg'),
+              backgroundImage: AssetImage(imgRoute),
             ),
             const SizedBox(
               width: 10,
@@ -44,7 +50,7 @@ class DoctorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Dr Richard Tan',
+                    doctorName,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -55,11 +61,11 @@ class DoctorCard extends StatelessWidget {
                   ),
                   Row(children: [
                     Text(
-                      'Dental',
+                      doctorCategory,
                       style: TextStyle(color: Color(0xFFADA4A5)),
                     ),
                     Text(
-                      '  |  Amaya Hospital',
+                      '  |  $doctorHospital',
                       style: TextStyle(color: Color(0xFFADA4A5)),
                     ),
                   ]),
@@ -90,58 +96,11 @@ class DoctorCard extends StatelessWidget {
                   ),
                 ],
               ),
-              /* 
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Dr Richard Tan',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Dental',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                          size: 16,
-                        ),
-                        Spacer(
-                          flex: 1,
-                        ),
-                        Text('4.5'),
-                        Spacer(
-                          flex: 1,
-                        ),
-                        Text('Reviews'),
-                        Spacer(
-                          flex: 1,
-                        ),
-                        Text('(20)'),
-                        Spacer(
-                          flex: 7,
-                        ),
-                      ],
-                    ),
-                  ]),*/
             ))
           ]),
         ),
         onTap: () {
-          Navigator.of(context).pushNamed(route);
+          Get.to(()=>DoctorDetails());
         },
       ),
     );

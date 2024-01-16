@@ -39,13 +39,13 @@ class _AuthPageState extends State<AuthPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      print('Sign In button pressed!');
+                      Navigator.of(context).pushNamed('/');
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.black,
                       textStyle: const TextStyle(
                         fontFamily: 'Source Sans Pro',
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
@@ -53,7 +53,7 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      print('Sign Up button pressed!');
+                      Navigator.of(context).pushNamed('/register');
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.black,

@@ -28,7 +28,12 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
               child: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return DoctorCard(route: 'doc_details');
+                  return DoctorCard(
+                    doctorName: 'Dr McClum',
+                    doctorCategory: 'Chemical Pathology',
+                    doctorHospital: 'Kandy Hospital',
+                    imgRoute: 'assets/doctor_3.jpg',
+                  );
                 },
               ),
             ),
