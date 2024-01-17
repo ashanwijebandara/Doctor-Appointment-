@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                               doctorName: data![index]['doc_name'],
                               doctorCategory: data![index]['docCategory'],
                               doctorHospital: data![index]['docAddress'],
-                              imgRoute: 'assets/doctor_1.jpg',
+                              imgRoute: data![index]['imgRoute'],
                             );
                           }),
                         );
