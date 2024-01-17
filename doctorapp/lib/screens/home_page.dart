@@ -5,10 +5,13 @@ import 'package:doctorapp/controllers/current_user_controller.dart';
 import 'package:doctorapp/controllers/home_controller.dart';
 import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+
+User? loggedInUser;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +21,35 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _auth = FirebaseAuth.instance;
+  String? userName;
+
+  @override
+  void initState() {
+    getCurrentUser();
+    getUserData();
+    super.initState();
+  }
+
+  Future<void> getUserData() async {
+    loggedInUser = _auth.currentUser!;
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(loggedInUser?.uid)
+        .get();
+
+    setState(() {
+      userName = userSnapshot['username'].toString();
+    });
+  }
+
+  void getCurrentUser() async {
+    final user = await _auth.currentUser;
+    if (user != null) {
+      loggedInUser = user;
+    }
+  }
+
   List<Map<String, dynamic>> medCat = [
     {
       "icon": FontAwesomeIcons.userDoctor,
@@ -80,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color(0xFFADA4A5)),
                         ),
                         Text(
-                          user_controller.username.value,
+                          userName!,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w800,
@@ -173,7 +205,11 @@ class _HomePageState extends State<HomePage> {
                               doctorHospital: data![index]['docAddress'],
                               imgRoute: data![index]['imgRoute'],
                               onPressed: () {
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=>DoctorDetails(id : data![index]['docId'])));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DoctorDetails(
+                                            id: data![index]['docId'])));
                               },
                             );
                           }),

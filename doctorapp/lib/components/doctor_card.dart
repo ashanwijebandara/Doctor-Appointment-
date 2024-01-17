@@ -99,10 +99,7 @@ class DoctorCard extends StatelessWidget {
             ))
           ]),
         ),
-        onTap: () {
-          Navigator.of(context).pushNamed('doc_details');
-          // Get.to(()=>DoctorDetails());
-        },
+        onTap: onPressed,
       ),
     );
   }

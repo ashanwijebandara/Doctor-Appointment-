@@ -70,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
         Button(
             width: double.infinity,
             title: 'Sign In',
-            onPressed: () async*{
+            onPressed: () async {
               await controller.loginUser();
               if (controller.userCredential != null) {
                 Navigator.of(context).pushNamed('main');
