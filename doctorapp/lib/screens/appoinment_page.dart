@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AppoinmentPage extends StatefulWidget {
@@ -13,55 +15,132 @@ enum FilterStatus { upcoming, complete, cancel }
 class _AppoinmentPageState extends State<AppoinmentPage> {
   FilterStatus status = FilterStatus.upcoming;
   Alignment _alignment = Alignment.centerLeft;
-  List<dynamic> schedules = [
-    {
-      "doctor_name": "Richard Tan",
-      "doctor_profile": "assets/doctor_1.jpg",
-      "category": "Dental",
-      "hospital": "Amaya Hospital",
-      "status": FilterStatus.upcoming
-    },
-    {
-      "doctor_name": "Max Lim",
-      "doctor_profile": "assets/doctor_1.jpg",
-      "category": "Cardiology",
-      "hospital": "Amaya Hospital",
-      "status": FilterStatus.complete
-    },
-    {
-      "doctor_name": "Jane Wong",
-      "doctor_profile": "assets/doctor_1.jpg",
-      "category": "Dental",
-      "hospital": "Amaya Hospital",
-      "status": FilterStatus.complete
-    },
-    {
-      "doctor_name": "Jenny Song",
-      "doctor_profile": "assets/doctor_1.jpg",
-      "category": "Dental",
-      "hospital": "Amaya Hospital",
-      "status": FilterStatus.cancel
+  List<dynamic> schedules = []; // Initialize with an empty list
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch user appointments and update the state
+    fetchUserAppointments();
+  }
+
+  Future<void> fetchUserAppointments() async {
+    String getCurrentUserId() {
+      User? user = FirebaseAuth.instance.currentUser;
+      return user?.uid ?? '';
     }
-  ];
+
+    String userId = getCurrentUserId();
+    print(userId);
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('appointments')
+        .where('uid', isEqualTo: userId)
+        .get();
+
+    List<DocumentSnapshot> documents = querySnapshot.docs;
+
+    List<Map<String, dynamic>> userAppointments =
+        documents.map((doc) => doc.data() as Map<String, dynamic>).toList();
+
+    // print(userAppointments.length);
+
+//from this userappointments list, get doctor id and fetch doctor details from doctors collection
+//then add doctor details to userappointments list
+
+    for (var i = 0; i < userAppointments.length; i++) {
+      String doctorId = userAppointments[i]['doctorId'];
+      DocumentSnapshot doctorSnapshot = await FirebaseFirestore.instance
+          .collection('doctors')
+          .doc(doctorId)
+          .get();
+
+      Map<String, dynamic> doctorData =
+          doctorSnapshot.data() as Map<String, dynamic>;
+
+      userAppointments[i]['doctor_name'] = doctorData['doc_name'];
+      userAppointments[i]['doctor_profile'] = doctorData['imgRoute'];
+      userAppointments[i]['category'] = doctorData['docCategory'];
+      userAppointments[i]['hospital'] = doctorData['docHospital'];
+      if (userAppointments[i]['status'] == 'upcoming') {
+        userAppointments[i]['status'] = FilterStatus.upcoming;
+      } else if (userAppointments[i]['status'] == 'complete') {
+        userAppointments[i]['status'] = FilterStatus.complete;
+      } else if (userAppointments[i]['status'] == 'cancel') {
+        userAppointments[i]['status'] = FilterStatus.cancel;
+      }
+      // userAppointments[i]['status'] = doctorData['status'];
+    }
+    // print(userAppointments.length);
+    // print(userAppointments);
+    print(userAppointments);
+
+    // userAppointments.add({
+    //   "doctor_name": "Richard Tan",
+    //   "doctor_profile": "assets/doctor_1.jpg",
+    //   "category": "Dental",
+    //   "hospital": "Amaya Hospital",
+    //   "status": FilterStatus.upcoming
+    // });
+
+    setState(() {
+      // Update the schedules list with fetched appointments
+      schedules = userAppointments;
+    });
+  }
+
+  // FilterStatus status = FilterStatus.upcoming;
+  // Alignment _alignment = Alignment.centerLeft;
+  // List<dynamic> schedules =
+  // [
+
+  //   {
+  //     "doctor_name": "Richard Tan",
+  //     "doctor_profile": "assets/doctor_1.jpg",
+  //     "category": "Dental",
+  //     "hospital": "Amaya Hospital",
+  //     "status": FilterStatus.upcoming
+  //   },
+  //   {
+  //     "doctor_name": "Max Lim",
+  //     "doctor_profile": "assets/doctor_1.jpg",
+  //     "category": "Cardiology",
+  //     "hospital": "Amaya Hospital",
+  //     "status": FilterStatus.complete
+  //   },
+  //   {
+  //     "doctor_name": "Jane Wong",
+  //     "doctor_profile": "assets/doctor_1.jpg",
+  //     "category": "Dental",
+  //     "hospital": "Amaya Hospital",
+  //     "status": FilterStatus.complete
+  //   },
+  //   {
+  //     "doctor_name": "Jenny Song",
+  //     "doctor_profile": "assets/doctor_1.jpg",
+  //     "category": "Dental",
+  //     "hospital": "Amaya Hospital",
+  //     "status": FilterStatus.cancel
+  //   }
+  // ];
 
   @override
   Widget build(BuildContext context) {
     List<dynamic> filteredSchedules = schedules
         .where((var schedule) => schedule['status'] == status)
         .toList();
-   
-      // switch (schedule['status']) {
-      //   case 'upcoming':
-      //     schedule['status'] = FilterStatus.upcoming;
-      //     break;
-      //   case 'complete':
-      //     schedule['status'] = FilterStatus.complete;
-      //     break;
-      //   case 'cancel':
-      //     schedule['status'] = FilterStatus.cancel;
-      //     break;
-      // }
-     
+
+    // switch (schedule['status']) {
+    //   case 'upcoming':
+    //     schedule['status'] = FilterStatus.upcoming;
+    //     break;
+    //   case 'complete':
+    //     schedule['status'] = FilterStatus.complete;
+    //     break;
+    //   case 'cancel':
+    //     schedule['status'] = FilterStatus.cancel;
+    //     break;
+    // }
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.only(left: 20, top: 20, right: 20),

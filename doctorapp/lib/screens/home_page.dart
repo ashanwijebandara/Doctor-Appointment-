@@ -41,6 +41,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       userName = userSnapshot['username'].toString();
     });
+
+
   }
 
   void getCurrentUser() async {

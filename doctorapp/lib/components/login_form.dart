@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class LoginForm extends StatefulWidget {
+  
   const LoginForm({super.key});
 
   @override
@@ -73,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () async {
               await controller.loginUser();
               if (controller.userCredential != null) {
-                Navigator.of(context).pushNamed('main');
+                Navigator.of(context).pushNamed('main');  
               }
               // Navigator.of(context).pushNamed('main');
             },
