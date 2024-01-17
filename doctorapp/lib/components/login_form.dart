@@ -70,12 +70,12 @@ class _LoginFormState extends State<LoginForm> {
         Button(
             width: double.infinity,
             title: 'Sign In',
-            onPressed: () {
-              // await controller.loginUser();
-              // if (controller.userCredential != null) {
-              //   Navigator.of(context).pushNamed('main');
-              // }
-              Navigator.of(context).pushNamed('main');
+            onPressed: () async*{
+              await controller.loginUser();
+              if (controller.userCredential != null) {
+                Navigator.of(context).pushNamed('main');
+              }
+              // Navigator.of(context).pushNamed('main');
             },
             disable: false),
       ]),

@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/custom_appbar.dart';
 
 class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({super.key});
+  DoctorDetails({required this.id});
+
+  final String id;
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
@@ -39,8 +43,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         child: SafeArea(
             child: Column(
           children: [
-            AboutDoctor(),
-            DetailBody(),
+            AboutDoctor(id: widget.id),
+            DetailBody(id: widget.id),
             Padding(
               padding: const EdgeInsets.only(
                 right: 20,
@@ -62,8 +66,41 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   }
 }
 
-class AboutDoctor extends StatelessWidget {
-  const AboutDoctor({super.key});
+class AboutDoctor extends StatefulWidget {
+  AboutDoctor({required this.id});
+
+  final String id;
+
+  @override
+  State<AboutDoctor> createState() => _AboutDoctorState();
+}
+
+class _AboutDoctorState extends State<AboutDoctor> {
+  String? docName;
+
+  String? docImage;
+
+  String? docQualification;
+
+  String? docHospital;
+
+  @override
+  void initState() {
+    getDoctorData();
+    super.initState();
+  }
+
+  Future<void> getDoctorData() async {
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('doctors').doc(widget.id).get();
+
+    setState(() {
+      docName = userSnapshot['doc_name'];
+      docImage = userSnapshot['imgRoute'];
+      docQualification = userSnapshot['docQualification'];
+      docHospital = userSnapshot['docHospital'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +124,7 @@ class AboutDoctor extends StatelessWidget {
           ),
           Config.spaceSmall,
           Text(
-            'Dr. John Doe',
+            docName!,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -97,7 +134,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.screenWidth! * 0.8,
             child: Text(
-              'MBBS (International University Sri Lanka), MRCP (Royal College).',
+              docQualification!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -110,7 +147,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.screenWidth! * 0.8,
             child: Text(
-              'Kandy Teaching Hospital, Kandy, Sri Lanka.',
+              docHospital!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -126,8 +163,32 @@ class AboutDoctor extends StatelessWidget {
   }
 }
 
-class DetailBody extends StatelessWidget {
-  const DetailBody({super.key});
+class DetailBody extends StatefulWidget {
+  DetailBody({required this.id});
+
+  final String id;
+
+  @override
+  State<DetailBody> createState() => _DetailBodyState();
+}
+
+class _DetailBodyState extends State<DetailBody> {
+  String? docAbout;
+
+  @override
+  void initState() {
+    getDoctorData();
+    super.initState();
+  }
+
+  Future<void> getDoctorData() async {
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('doctors').doc(widget.id).get();
+
+    setState(() {
+      docAbout = userSnapshot['docAbout'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

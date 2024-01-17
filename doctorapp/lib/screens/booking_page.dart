@@ -21,6 +21,32 @@ class _BookingPageState extends State<BookingPage> {
   bool _isWeekend = false;
   bool _dateSelected = false;
   bool _timeSelected = false;
+
+  void _makeAppointment() async {
+    if (_dateSelected && _timeSelected) {
+      
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      
+      Map<String, dynamic> appointmentData = {
+        'date': _currentDay,
+        'time': _currentIndex! + 9,
+        // Add any other details you want to store
+      };
+
+      // Adding the appointment data to the 'appointments' collection
+      try {
+        await firestore.collection('appointments').add(appointmentData);
+
+        // Navigate to success_booking page or perform any other action
+        Navigator.of(context).pushNamed('success_booking');
+      } catch (e) {
+        // Handle any errors that may occur during the Firestore operation
+        print('Error adding appointment: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Config().init(context);
@@ -135,9 +161,10 @@ class _BookingPageState extends State<BookingPage> {
               child: Button(
                 width: double.infinity,
                 title: 'Make Appoinment',
-                onPressed: () {
-                  Navigator.of(context).pushNamed('success_booking');
-                },
+                onPressed: _makeAppointment,
+                // () {
+                //   Navigator.of(context).pushNamed('success_booking');
+                // },
                 disable: _timeSelected && _dateSelected ? false : true,
               ),
             ),
@@ -186,4 +213,3 @@ class _BookingPageState extends State<BookingPage> {
     );
   }
 }
-

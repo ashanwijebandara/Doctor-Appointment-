@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard(
+  DoctorCard(
       {Key? key,
-      
+      required this.onPressed,
       required this.imgRoute,
       required this.doctorName,
       required this.doctorCategory,
@@ -15,7 +15,7 @@ class DoctorCard extends StatelessWidget {
       : super(key: key);
 
   final String imgRoute;
-  
+  VoidCallback onPressed;
   final String doctorName;
   final String doctorCategory;
   final String doctorHospital;
@@ -100,7 +100,8 @@ class DoctorCard extends StatelessWidget {
           ]),
         ),
         onTap: () {
-          Get.to(()=>DoctorDetails());
+          Navigator.of(context).pushNamed('doc_details');
+          // Get.to(()=>DoctorDetails());
         },
       ),
     );

@@ -3,6 +3,7 @@ import 'package:doctorapp/components/appoinment_cart.dart';
 import 'package:doctorapp/components/doctor_card.dart';
 import 'package:doctorapp/controllers/current_user_controller.dart';
 import 'package:doctorapp/controllers/home_controller.dart';
+import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -171,6 +172,9 @@ class _HomePageState extends State<HomePage> {
                               doctorCategory: data![index]['docCategory'],
                               doctorHospital: data![index]['docAddress'],
                               imgRoute: data![index]['imgRoute'],
+                              onPressed: () {
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>DoctorDetails(id : data![index]['docId'])));
+                              },
                             );
                           }),
                         );
