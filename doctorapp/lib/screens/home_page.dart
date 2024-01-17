@@ -3,11 +3,12 @@ import 'package:doctorapp/components/appoinment_cart.dart';
 import 'package:doctorapp/components/doctor_card.dart';
 import 'package:doctorapp/controllers/current_user_controller.dart';
 import 'package:doctorapp/controllers/home_controller.dart';
+//import 'package:doctorapp/screens/category_doctor_page.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+//import 'package:get/get_core/src/get_main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -104,33 +105,40 @@ class _HomePageState extends State<HomePage> {
                   child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: List<Widget>.generate(medCat.length, (index) {
-                        return Card(
-                            margin: EdgeInsets.only(right: 20),
-                            color: Config.primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  FaIcon(
-                                    medCat[index]['icon'],
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    medCat[index]['category'],
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                        return GestureDetector(
+                          /*onTap: () {
+                            // Navigate to the new page with the selected category
+                            //Get.to(CategoryDoctorsPage(
+                                category: medCat[index]['category']));
+                          },*/
+                          child: Card(
+                              margin: EdgeInsets.only(right: 20),
+                              color: Config.primaryColor,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FaIcon(
+                                      medCat[index]['icon'],
                                       color: Colors.white,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ));
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      medCat[index]['category'],
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        );
                       })),
                 ),
                 Config.spaceSmall,
@@ -171,6 +179,8 @@ class _HomePageState extends State<HomePage> {
                               doctorCategory: data![index]['docCategory'],
                               doctorHospital: data![index]['docAddress'],
                               imgRoute: 'assets/doctor_1.jpg',
+                              doctorRating: data![index]['docRating'],
+                              doctorReview: data![index]['docReview'],
                             );
                           }),
                         );

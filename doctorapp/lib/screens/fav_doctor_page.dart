@@ -30,9 +30,11 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
                 itemBuilder: (context, index) {
                   return DoctorCard(
                     doctorName: 'Dr McClum',
-                    doctorCategory: 'Chemical Pathology',
+                    doctorCategory: 'Cardiology',
                     doctorHospital: 'Kandy Hospital',
                     imgRoute: 'assets/doctor_3.jpg',
+                    doctorRating: '9',
+                    doctorReview: '(20)',
                   );
                 },
               ),

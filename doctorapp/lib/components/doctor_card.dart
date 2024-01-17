@@ -5,20 +5,23 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class DoctorCard extends StatelessWidget {
-  const DoctorCard(
-      {Key? key,
-      
-      required this.imgRoute,
-      required this.doctorName,
-      required this.doctorCategory,
-      required this.doctorHospital})
-      : super(key: key);
+  const DoctorCard({
+    Key? key,
+    required this.imgRoute,
+    required this.doctorName,
+    required this.doctorCategory,
+    required this.doctorHospital,
+    required this.doctorRating,
+    required this.doctorReview,
+  }) : super(key: key);
 
   final String imgRoute;
-  
+
   final String doctorName;
   final String doctorCategory;
   final String doctorHospital;
+  final String doctorRating;
+  final String doctorReview;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,15 +83,15 @@ class DoctorCard extends StatelessWidget {
                       Spacer(
                         flex: 1,
                       ),
-                      Text('4.5'),
+                      Text(doctorRating),
                       Spacer(
                         flex: 1,
                       ),
-                      Text('Reviews'),
+                      Text('Review'),
                       Spacer(
                         flex: 1,
                       ),
-                      Text('(20)'),
+                      Text(doctorReview),
                       Spacer(
                         flex: 7,
                       ),
@@ -100,7 +103,7 @@ class DoctorCard extends StatelessWidget {
           ]),
         ),
         onTap: () {
-          Get.to(()=>DoctorDetails());
+          Get.to(() => DoctorDetails());
         },
       ),
     );
