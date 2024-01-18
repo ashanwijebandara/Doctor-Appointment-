@@ -19,9 +19,7 @@ class _AuthPageState extends State<AuthPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: <Widget>[
               Center(
                 child: Text(
@@ -39,7 +37,7 @@ class _AuthPageState extends State<AuthPage> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/');
+                      // Navigator.of(context).pushNamed('/');
                     },
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.black,
@@ -68,9 +66,9 @@ class _AuthPageState extends State<AuthPage> {
                 ],
               ),
               Config.spaceSmall,
-              const LoginForm(),
+              LoginForm(),
               Config.spaceSmall,
-              const Spacer(),
+              Spacer(),
               Center(
                 child: Text(
                   AppText.enText['social-login']!,
