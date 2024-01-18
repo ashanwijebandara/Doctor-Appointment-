@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/utils/config.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/custom_appbar.dart';
@@ -54,9 +54,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 width: double.infinity,
                 title: 'Book Appointment',
                 onPressed: () {
-                  Navigator.of(context).pushNamed('booking_page',
-                  arguments: widget.id
-                  );
+                  Navigator.of(context)
+                      .pushNamed('booking_page', arguments: widget.id);
                 },
                 disable: false,
               ),
@@ -79,11 +78,8 @@ class AboutDoctor extends StatefulWidget {
 
 class _AboutDoctorState extends State<AboutDoctor> {
   String? docName;
-
   String? docImage;
-
   String? docQualification;
-
   String? docHospital;
 
   @override
@@ -93,8 +89,10 @@ class _AboutDoctorState extends State<AboutDoctor> {
   }
 
   Future<void> getDoctorData() async {
-    DocumentSnapshot userSnapshot =
-        await FirebaseFirestore.instance.collection('doctors').doc(widget.id).get();
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('doctors')
+        .doc(widget.id)
+        .get();
 
     setState(() {
       docName = userSnapshot['doc_name'];
@@ -176,6 +174,11 @@ class DetailBody extends StatefulWidget {
 
 class _DetailBodyState extends State<DetailBody> {
   String? docAbout;
+  String? docPatients;
+  String? docExperience;
+  String? docRating;
+  String? docTiming;
+  String? docHospital;
 
   @override
   void initState() {
@@ -184,11 +187,18 @@ class _DetailBodyState extends State<DetailBody> {
   }
 
   Future<void> getDoctorData() async {
-    DocumentSnapshot userSnapshot =
-        await FirebaseFirestore.instance.collection('doctors').doc(widget.id).get();
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('doctors')
+        .doc(widget.id)
+        .get();
 
     setState(() {
       docAbout = userSnapshot['docAbout'];
+      docExperience = userSnapshot['docExperience'];
+      docPatients = userSnapshot['docPatients'];
+      docRating = userSnapshot['docRating'];
+      docTiming = userSnapshot['docTiming'];
+      docHospital = userSnapshot['docHospital'];
     });
   }
 
@@ -202,7 +212,12 @@ class _DetailBodyState extends State<DetailBody> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Config.spaceSmall,
-          const DoctorInfo(),
+          if (docExperience != null && docPatients != null)
+            DoctorInfo(
+              experience: docExperience!,
+              patients: docPatients!,
+              rating: docRating!,
+            ),
           Config.spaceMedium,
           Text(
             'About Me',
@@ -213,7 +228,7 @@ class _DetailBodyState extends State<DetailBody> {
           ),
           Config.spaceSmall,
           Text(
-            'Dr. Richard Tan is an expierience Dentist at Kandy Hospital.',
+            docAbout!,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               height: 1.5,
@@ -230,7 +245,11 @@ class _DetailBodyState extends State<DetailBody> {
             ),
           ),
           Config.spaceSmall,
-          const ScheduleInfo(),
+          if (docTiming != null && docHospital != null)
+            ScheduleInfo(
+              timing: docTiming!,
+              hospital: docHospital!,
+            ),
         ],
       ),
     );
@@ -238,7 +257,16 @@ class _DetailBodyState extends State<DetailBody> {
 }
 
 class ScheduleInfo extends StatelessWidget {
-  const ScheduleInfo({super.key});
+  // ScheduleInfo({super.key});
+
+  ScheduleInfo({
+    Key? key,
+    required this.timing,
+    required this.hospital,
+  }) : super(key: key);
+
+  final String timing;
+  final String hospital;
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +284,7 @@ class ScheduleInfo extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                'Monday - Friday, 08:00 AM - 05:00 PM',
+                timing,
                 style: TextStyle(
                   color: Colors.blue,
                 ),
@@ -275,7 +303,7 @@ class ScheduleInfo extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                '13th Street. Amaya Hospital , COlombo Road , Kandy',
+                hospital,
                 style: TextStyle(
                   color: Colors.blue,
                 ),
@@ -289,7 +317,18 @@ class ScheduleInfo extends StatelessWidget {
 }
 
 class DoctorInfo extends StatelessWidget {
-  const DoctorInfo({super.key});
+  //const DoctorInfo({super.key});
+
+  DoctorInfo({
+    Key? key,
+    required this.experience,
+    required this.patients,
+    required this.rating,
+  }) : super(key: key);
+
+  final String experience;
+  final String patients;
+  final String rating;
 
   @override
   Widget build(BuildContext context) {
@@ -297,21 +336,21 @@ class DoctorInfo extends StatelessWidget {
       children: [
         InfoCard(
           label: 'Patients',
-          value: '109',
+          value: patients,
         ),
         SizedBox(
           width: 15,
         ),
         InfoCard(
           label: 'Experience',
-          value: '5 Years',
+          value: experience,
         ),
         SizedBox(
           width: 15,
         ),
         InfoCard(
           label: 'Rating',
-          value: '4.5',
+          value: rating,
         ),
       ],
     );
@@ -324,6 +363,7 @@ class InfoCard extends StatelessWidget {
 
   final String label;
   final String value;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
