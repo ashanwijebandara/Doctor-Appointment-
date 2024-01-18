@@ -13,7 +13,21 @@ class CategoryDoctorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctors in $category'),
+        title: Padding(
+          padding: EdgeInsets.only(left: 50.0),
+          child: Text(
+            'Doctors in $category',
+            style: TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 18),
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios_rounded),
+          color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: DoctorList(category: category),
     );
