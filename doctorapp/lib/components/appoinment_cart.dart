@@ -1,5 +1,6 @@
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AppoinmentCard extends StatefulWidget {
   const AppoinmentCard({Key? key}) : super(key: key);
@@ -126,6 +127,9 @@ class ScheduleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('EEEE, MM/dd/yyyy').format(now);
+    String formattedTime = DateFormat('h:mm a').format(now);
     return Container(
       decoration: BoxDecoration(
         color: Color(0xFF1389C2),
@@ -143,7 +147,7 @@ class ScheduleCard extends StatelessWidget {
           width: 5,
         ),
         Text(
-          'Monday, 11/23/1999',
+          formattedDate,
           style: TextStyle(
             color: Colors.white,
           ),
@@ -161,7 +165,7 @@ class ScheduleCard extends StatelessWidget {
         ),
         Flexible(
             child: Text(
-          '2:00 PM',
+          formattedTime,
           style: TextStyle(color: Colors.white),
         ))
       ]),
