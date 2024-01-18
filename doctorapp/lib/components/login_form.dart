@@ -66,19 +66,43 @@ class _LoginFormState extends State<LoginForm> {
                           color: Color(0xFF1597D5),
                         ))),
         ),
+        Config.spaceSmall,
+        Text(
+          controller.errorMessage,
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 14,
+          ),
+        ),
         Config.spaceMedium,
         Button(
             width: double.infinity,
             title: 'Sign In',
-            onPressed: () {
-              // await controller.loginUser();
-              // if (controller.userCredential != null) {
-              //   Navigator.of(context).pushNamed('main');
-              // }
-              Navigator.of(context).pushNamed('main');
+            onPressed: () async {
+              await controller.loginUser();
+              if (controller.userCredential != null) {
+                Navigator.of(context).pushNamed('main');
+              } else {
+                // Clear the error message before displaying a new one
+                controller.errorMessage = '';
+                // Show error message under the password field
+                setState(() {});
+              }
+              // Navigator.of(context).pushNamed('main');
             },
             disable: false),
       ]),
     );
   }
+/*
+  void showErrorMessage(BuildContext context, String message) {
+    if (message.isNotEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }*/
 }

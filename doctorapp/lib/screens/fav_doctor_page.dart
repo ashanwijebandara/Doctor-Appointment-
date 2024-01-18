@@ -1,5 +1,5 @@
 //import 'package:doctorapp/components/doctor_card.dart';
-import 'package:doctorapp/components/doctor_card.dart';
+//import 'package:doctorapp/components/doctor_card.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
 
@@ -28,14 +28,12 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
               child: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return DoctorCard(
-                    doctorName: 'Dr McClum',
-                    doctorCategory: 'Cardiology',
-                    doctorHospital: 'Kandy Hospital',
-                    imgRoute: 'assets/doctor_3.jpg',
-                    doctorRating: '9',
-                    doctorReview: '(20)',
-                  );
+                  // return DoctorCard(
+                  //   doctorName: 'Dr McClum',
+                  //   doctorCategory: 'Chemical Pathology',
+                  //   doctorHospital: 'Kandy Hospital',
+                  //   imgRoute: 'assets/doctor_3.jpg',
+                  // );
                 },
               ),
             ),

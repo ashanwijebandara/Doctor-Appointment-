@@ -1,12 +1,15 @@
 //import 'package:doctorapp/utils/config.dart';
+//import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+// ignore: must_be_immutable
 class DoctorCard extends StatelessWidget {
-  const DoctorCard({
+  DoctorCard({
     Key? key,
+    required this.onPressed,
     required this.imgRoute,
     required this.doctorName,
     required this.doctorCategory,
@@ -16,7 +19,7 @@ class DoctorCard extends StatelessWidget {
   }) : super(key: key);
 
   final String imgRoute;
-
+  VoidCallback onPressed;
   final String doctorName;
   final String doctorCategory;
   final String doctorHospital;
@@ -102,9 +105,7 @@ class DoctorCard extends StatelessWidget {
             ))
           ]),
         ),
-        onTap: () {
-          Get.to(() => DoctorDetails());
-        },
+        onTap: onPressed,
       ),
     );
   }

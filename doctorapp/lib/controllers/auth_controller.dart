@@ -18,10 +18,21 @@ class AuthController extends GetxController {
       }
     });
   }
-
+  String errorMessage = '';
+  /*
   loginUser() async {
     userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
+  }*/
+   loginUser() async {
+    try {
+      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+
+      errorMessage = ''; // Reset error message if login is successful
+    } on FirebaseAuthException catch (e) {
+      errorMessage = 'Sorry, your password or username is incorrect.';
+    }
   }
 
   signupUser() async {

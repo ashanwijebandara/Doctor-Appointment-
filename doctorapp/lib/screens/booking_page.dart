@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/components/custom_appbar.dart';
 import 'package:doctorapp/utils/config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+enum FilterStatus { upcoming, complete, cancel }
 class BookingPage extends StatefulWidget {
   const BookingPage({Key? key}) : super(key: key);
 
@@ -20,6 +22,39 @@ class _BookingPageState extends State<BookingPage> {
   bool _isWeekend = false;
   bool _dateSelected = false;
   bool _timeSelected = false;
+
+  void _makeAppointment() async {
+    if (_dateSelected && _timeSelected) {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final _auth = FirebaseAuth.instance;
+      String? loggedInUser;
+
+      loggedInUser = _auth.currentUser!.uid;
+
+      String data = ModalRoute.of(context)!.settings.arguments as String;
+
+      Map<String, dynamic> appointmentData = {
+        'doctorId': data,
+        'uid': loggedInUser,
+        'date': _currentDay,
+        'time': _currentIndex! + 9,
+        "status": "upcoming",
+        // Add any other details you want to store
+      };
+
+      // Adding the appointment data to the 'appointments' collection
+      try {
+        await firestore.collection('appointments').add(appointmentData);
+
+        // Navigate to success_booking page or perform any other action
+        Navigator.of(context).pushNamed('success_booking');
+      } catch (e) {
+        // Handle any errors that may occur during the Firestore operation
+        print('Error adding appointment: $e');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Config().init(context);
@@ -134,9 +169,10 @@ class _BookingPageState extends State<BookingPage> {
               child: Button(
                 width: double.infinity,
                 title: 'Make Appoinment',
-                onPressed: () {
-                  Navigator.of(context).pushNamed('success_booking');
-                },
+                onPressed: _makeAppointment,
+                // () {
+                //   Navigator.of(context).pushNamed('success_booking');
+                // },
                 disable: _timeSelected && _dateSelected ? false : true,
               ),
             ),
