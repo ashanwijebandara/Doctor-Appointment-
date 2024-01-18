@@ -1,22 +1,39 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
+import 'package:doctorapp/screens/fav_doctor_page.dart';
 import 'package:doctorapp/utils/config.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/custom_appbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DoctorDetails extends StatefulWidget {
-  DoctorDetails({required this.id});
+  DoctorDetails({required this.id, required this.userId});
 
   final String id;
+  final String userId;
 
   @override
   State<DoctorDetails> createState() => _DoctorDetailsState();
 }
 
+Future<void> markAsFavorite(String userId, String doctorId) async {
+  try {
+    DocumentReference userRef =
+        FirebaseFirestore.instance.collection('users').doc(userId);
+    await userRef.update({
+      'favoriteDoctors': FieldValue.arrayUnion([doctorId]),
+    });
+  } catch (error) {
+    print('Error marking doctor as favorite: $error');
+  }
+}
+
 class _DoctorDetailsState extends State<DoctorDetails> {
   bool isFav = false;
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +44,24 @@ class _DoctorDetailsState extends State<DoctorDetails> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               setState(() {
                 isFav = !isFav;
               });
+              User? user = _auth.currentUser;
+              if (user != null) {
+                // Use the actual user ID
+                String userId = user.uid;
+                await markAsFavorite(userId, widget.id);
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Favourite_Doctor_Page(),
+                  ),
+                );
+              } else {
+                print('User not authenticated.');
+                // Handle the case where the user is not authenticated.
+              }
             },
             icon: FaIcon(
               isFav ? Icons.favorite_rounded : Icons.favorite_outline,
