@@ -31,7 +31,6 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
     }
 
     String userId = getCurrentUserId();
-    print(userId);
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('appointments')
         .where('uid', isEqualTo: userId)
@@ -75,8 +74,6 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
     List<dynamic> filteredSchedules = schedules
         .where((var schedule) => schedule['status'] == status)
         .toList();
-
-   
 
     return SafeArea(
       child: Padding(
@@ -164,328 +161,367 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
       ),
     );
   }
-}
 
-Widget _buildContent(List<dynamic> filteredSchedules, FilterStatus status) {
-  if (status == FilterStatus.upcoming) {
-    return _buildUpcomingContent(filteredSchedules);
-  } else if (status == FilterStatus.complete) {
-    return _buildCompleteContent(filteredSchedules);
-  } else if (status == FilterStatus.cancel) {
-    return _buildCancelContent(filteredSchedules);
+  Widget _buildContent(List<dynamic> filteredSchedules, FilterStatus status) {
+    if (status == FilterStatus.upcoming) {
+      return _buildUpcomingContent(filteredSchedules);
+    } else if (status == FilterStatus.complete) {
+      return _buildCompleteContent(filteredSchedules);
+    } else if (status == FilterStatus.cancel) {
+      return _buildCancelContent(filteredSchedules);
+    }
+
+    return Container();
   }
 
-  return Container();
-}
+  Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
+    return ListView.builder(
+      itemCount: filteredSchedules.length,
+      itemBuilder: (context, index) {
+        var _schedule = filteredSchedules[index];
+        bool isLastElement = filteredSchedules.length - 1 == index;
+        String sheduleDate = _schedule['date'];
+        String sheduleTime = _schedule['time'];
+        String appointmentId = _schedule['appointmentId'];
 
-Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
-  return ListView.builder(
-    itemCount: filteredSchedules.length,
-    itemBuilder: (context, index) {
-      var _schedule = filteredSchedules[index];
-      bool isLastElement = filteredSchedules.length - 1 == index;
-      String sheduleDate = _schedule['date'];
-      String sheduleTime = _schedule['time'];
-     // String appointmentId = _schedule['id'];
-
-      return Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Colors.grey,
+        return Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        margin: !isLastElement
-            ? const EdgeInsets.only(bottom: 20)
-            : EdgeInsets.zero,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage(_schedule['doctor_profile']),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _schedule['doctor_name'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            _schedule['category'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            '|',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            _schedule['hospital'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              ScheduleCard(
-                sheduleDate: sheduleDate,
-                sheduleTime: sheduleTime,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide(
-                            color: Colors.red,
-                            width: 1.0,
+          margin: !isLastElement
+              ? const EdgeInsets.only(bottom: 20)
+              : EdgeInsets.zero,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage(_schedule['doctor_profile']),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _schedule['doctor_name'],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      onPressed: () {
-                        // Handle cancel appointment
-                      //  _cancelAppointment(appointmentId);
-                      },
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(color: Config.primaryColor),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              _schedule['category'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Config.spacehorizontal_small,
+                            Text(
+                              '|',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            Config.spacehorizontal_small,
+                            Text(
+                              _schedule['hospital'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ScheduleCard(
+                  sheduleDate: sheduleDate,
+                  sheduleTime: sheduleTime,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.all<BorderSide>(
+                            BorderSide(
+                              color: Colors.red,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          // Handle cancel appointment
+                          _cancelAppointment(appointmentId);
+                        },
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(color: Config.primaryColor),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: Config.primaryColor,
-                      ),
-                      onPressed: () {
-                        // Handle complete appointment
-                      //  _completeAppointment(appointmentId);
-                      },
-                      child: Text(
-                        'Completed',
-                        style: TextStyle(color: Colors.white),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Config.primaryColor,
+                        ),
+                        onPressed: () {
+                          // Handle complete appointment
+                          _completeAppointment(appointmentId);
+                        },
+                        child: Text(
+                          'Completed',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      );
-    },
-  );
-}
+        );
+      },
+    );
+  }
 
-Widget _buildCompleteContent(List<dynamic> filteredSchedules) {
-  return ListView.builder(
-    itemCount: filteredSchedules.length,
-    itemBuilder: (context, index) {
-      var _schedule = filteredSchedules[index];
-      bool isLastElement = filteredSchedules.length - 1 == index;
-
-      return Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Colors.grey,
+  Widget _buildCompleteContent(List<dynamic> filteredSchedules) {
+    return ListView.builder(
+      itemCount: filteredSchedules.length,
+      itemBuilder: (context, index) {
+        var _schedule = filteredSchedules[index];
+        bool isLastElement = filteredSchedules.length - 1 == index;
+        String sheduleDate = _schedule['date'];
+        String sheduleTime = _schedule['time'];
+        return Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20),
           ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        margin: !isLastElement
-            ? const EdgeInsets.only(bottom: 20)
-            : EdgeInsets.zero,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage(_schedule['doctor_profile']),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _schedule['doctor_name'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+          margin: !isLastElement
+              ? const EdgeInsets.only(bottom: 20)
+              : EdgeInsets.zero,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage(_schedule['doctor_profile']),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _schedule['doctor_name'],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            _schedule['category'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            '|',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            _schedule['hospital'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              // const ScheduleCard(),
-              const SizedBox(
-                height: 15,
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
-
-Widget _buildCancelContent(List<dynamic> filteredSchedules) {
-  return ListView.builder(
-    itemCount: filteredSchedules.length,
-    itemBuilder: (context, index) {
-      var _schedule = filteredSchedules[index];
-      bool isLastElement = filteredSchedules.length - 1 == index;
-
-      return Card(
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Colors.grey,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        margin: !isLastElement
-            ? const EdgeInsets.only(bottom: 20)
-            : EdgeInsets.zero,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundImage: AssetImage(_schedule['doctor_profile']),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _schedule['doctor_name'],
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            _schedule['category'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
+                        Row(
+                          children: [
+                            Text(
+                              _schedule['category'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            '|',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          Config.spacehorizontal_small,
-                          Text(
-                            _schedule['hospital'],
-                            style: TextStyle(
-                              color: Colors.black,
-                              //fontWeight: FontWeight.w600,
+                            Config.spacehorizontal_small,
+                            Text(
+                              '|',
+                              style: TextStyle(color: Colors.black),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              // const ScheduleCard(),
-              const SizedBox(
-                height: 15,
-              ),
-            ],
+                            Config.spacehorizontal_small,
+                            Text(
+                              _schedule['hospital'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ScheduleCard(
+                  sheduleDate: sheduleDate,
+                  sheduleTime: sheduleTime,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
+
+  Widget _buildCancelContent(List<dynamic> filteredSchedules) {
+    return ListView.builder(
+      itemCount: filteredSchedules.length,
+      itemBuilder: (context, index) {
+        var _schedule = filteredSchedules[index];
+        bool isLastElement = filteredSchedules.length - 1 == index;
+        String sheduleDate = _schedule['date'];
+        String sheduleTime = _schedule['time'];
+
+        return Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Colors.grey,
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          margin: !isLastElement
+              ? const EdgeInsets.only(bottom: 20)
+              : EdgeInsets.zero,
+          child: Padding(
+            padding: EdgeInsets.all(15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundImage: AssetImage(_schedule['doctor_profile']),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _schedule['doctor_name'],
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              _schedule['category'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Config.spacehorizontal_small,
+                            Text(
+                              '|',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            Config.spacehorizontal_small,
+                            Text(
+                              _schedule['hospital'],
+                              style: TextStyle(
+                                color: Colors.black,
+                                //fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                ScheduleCard(
+                  sheduleDate: sheduleDate,
+                  sheduleTime: sheduleTime,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _completeAppointment(String appointmentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('appointments')
+          .doc(appointmentId)
+          .update({'status': 'complete'});
+
+      // Fetch updated user appointments and update the state
+      await fetchUserAppointments();
+    } catch (e) {
+      print('Error completing appointment: $e');
+      // Handle error
+    }
+  }
+
+  void _cancelAppointment(String appointmentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('appointments')
+          .doc(appointmentId)
+          .update({'status': 'cancel'});
+
+      // Fetch updated user appointments and update the state
+      await fetchUserAppointments();
+    } catch (e) {
+      print('Error canceling appointment: $e');
+      // Handle error
+    }
+  }
 }
 
 class ScheduleCard extends StatelessWidget {

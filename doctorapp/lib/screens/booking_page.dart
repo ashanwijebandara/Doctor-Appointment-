@@ -49,24 +49,19 @@ class _BookingPageState extends State<BookingPage> {
         "status": "upcoming",
       };
 
-      // Adding the appointment data to the 'appointments' collection
       try {
         DocumentReference appointmentRef =
             await firestore.collection('appointments').add(appointmentData);
 
-        // Get the generated appointment ID
         String appointmentId = appointmentRef.id;
 
-        // Update the 'appointmentId' field in the same document
         await firestore
             .collection('appointments')
             .doc(appointmentId)
             .update({'appointmentId': appointmentId});
 
-        // Navigate to success_booking page or perform any other action
         Navigator.of(context).pushNamed('success_booking');
       } catch (e) {
-        // Handle any errors that may occur during the Firestore operation
         print('Error adding appointment: $e');
       }
     }
