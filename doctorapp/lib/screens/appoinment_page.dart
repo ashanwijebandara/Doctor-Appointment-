@@ -15,12 +15,12 @@ enum FilterStatus { upcoming, complete, cancel }
 class _AppoinmentPageState extends State<AppoinmentPage> {
   FilterStatus status = FilterStatus.upcoming;
   Alignment _alignment = Alignment.centerLeft;
-  List<dynamic> schedules = []; // Initialize with an empty list
+  List<dynamic> schedules = [];
 
   @override
   void initState() {
     super.initState();
-    // Fetch user appointments and update the state
+
     fetchUserAppointments();
   }
 
@@ -41,11 +41,6 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
 
     List<Map<String, dynamic>> userAppointments =
         documents.map((doc) => doc.data() as Map<String, dynamic>).toList();
-
-    // print(userAppointments.length);
-
-//from this userappointments list, get doctor id and fetch doctor details from doctors collection
-//then add doctor details to userappointments list
 
     for (var i = 0; i < userAppointments.length; i++) {
       String doctorId = userAppointments[i]['doctorId'];
@@ -68,60 +63,12 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
       } else if (userAppointments[i]['status'] == 'cancel') {
         userAppointments[i]['status'] = FilterStatus.cancel;
       }
-      // userAppointments[i]['status'] = doctorData['status'];
     }
-    // print(userAppointments.length);
-    // print(userAppointments);
-    print(userAppointments);
-
-    // userAppointments.add({
-    //   "doctor_name": "Richard Tan",
-    //   "doctor_profile": "assets/doctor_1.jpg",
-    //   "category": "Dental",
-    //   "hospital": "Amaya Hospital",
-    //   "status": FilterStatus.upcoming
-    // });
 
     setState(() {
-      // Update the schedules list with fetched appointments
       schedules = userAppointments;
     });
   }
-
-  // FilterStatus status = FilterStatus.upcoming;
-  // Alignment _alignment = Alignment.centerLeft;
-  // List<dynamic> schedules =
-  // [
-
-  //   {
-  //     "doctor_name": "Richard Tan",
-  //     "doctor_profile": "assets/doctor_1.jpg",
-  //     "category": "Dental",
-  //     "hospital": "Amaya Hospital",
-  //     "status": FilterStatus.upcoming
-  //   },
-  //   {
-  //     "doctor_name": "Max Lim",
-  //     "doctor_profile": "assets/doctor_1.jpg",
-  //     "category": "Cardiology",
-  //     "hospital": "Amaya Hospital",
-  //     "status": FilterStatus.complete
-  //   },
-  //   {
-  //     "doctor_name": "Jane Wong",
-  //     "doctor_profile": "assets/doctor_1.jpg",
-  //     "category": "Dental",
-  //     "hospital": "Amaya Hospital",
-  //     "status": FilterStatus.complete
-  //   },
-  //   {
-  //     "doctor_name": "Jenny Song",
-  //     "doctor_profile": "assets/doctor_1.jpg",
-  //     "category": "Dental",
-  //     "hospital": "Amaya Hospital",
-  //     "status": FilterStatus.cancel
-  //   }
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -129,17 +76,7 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
         .where((var schedule) => schedule['status'] == status)
         .toList();
 
-    // switch (schedule['status']) {
-    //   case 'upcoming':
-    //     schedule['status'] = FilterStatus.upcoming;
-    //     break;
-    //   case 'complete':
-    //     schedule['status'] = FilterStatus.complete;
-    //     break;
-    //   case 'cancel':
-    //     schedule['status'] = FilterStatus.cancel;
-    //     break;
-    // }
+   
 
     return SafeArea(
       child: Padding(
@@ -247,6 +184,9 @@ Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
     itemBuilder: (context, index) {
       var _schedule = filteredSchedules[index];
       bool isLastElement = filteredSchedules.length - 1 == index;
+      String sheduleDate = _schedule['date'];
+      String sheduleTime = _schedule['time'];
+     // String appointmentId = _schedule['id'];
 
       return Card(
         shape: RoundedRectangleBorder(
@@ -316,7 +256,10 @@ Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
               const SizedBox(
                 height: 15,
               ),
-              const ScheduleCard(),
+              ScheduleCard(
+                sheduleDate: sheduleDate,
+                sheduleTime: sheduleTime,
+              ),
               const SizedBox(
                 height: 15,
               ),
@@ -333,7 +276,10 @@ Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Handle cancel appointment
+                      //  _cancelAppointment(appointmentId);
+                      },
                       child: Text(
                         'Cancel',
                         style: TextStyle(color: Config.primaryColor),
@@ -348,9 +294,12 @@ Widget _buildUpcomingContent(List<dynamic> filteredSchedules) {
                       style: OutlinedButton.styleFrom(
                         backgroundColor: Config.primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Handle complete appointment
+                      //  _completeAppointment(appointmentId);
+                      },
                       child: Text(
-                        'Reschedule',
+                        'Completed',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -440,7 +389,7 @@ Widget _buildCompleteContent(List<dynamic> filteredSchedules) {
               const SizedBox(
                 height: 15,
               ),
-              const ScheduleCard(),
+              // const ScheduleCard(),
               const SizedBox(
                 height: 15,
               ),
@@ -527,7 +476,7 @@ Widget _buildCancelContent(List<dynamic> filteredSchedules) {
               const SizedBox(
                 height: 15,
               ),
-              const ScheduleCard(),
+              // const ScheduleCard(),
               const SizedBox(
                 height: 15,
               ),
@@ -540,7 +489,9 @@ Widget _buildCancelContent(List<dynamic> filteredSchedules) {
 }
 
 class ScheduleCard extends StatelessWidget {
-  const ScheduleCard({super.key});
+  ScheduleCard({required this.sheduleDate, required this.sheduleTime});
+  String sheduleDate;
+  String sheduleTime;
 
   @override
   Widget build(BuildContext context) {
@@ -564,7 +515,7 @@ class ScheduleCard extends StatelessWidget {
               width: 5,
             ),
             Text(
-              'Monday, 11/23/1999',
+              sheduleDate,
               style: TextStyle(
                 color: Config.primaryColor,
               ),
@@ -582,7 +533,7 @@ class ScheduleCard extends StatelessWidget {
             ),
             Flexible(
                 child: Text(
-              '2:00 PM',
+              sheduleTime,
               style: TextStyle(
                 color: Config.primaryColor,
               ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/doctor_card.dart';
+import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDoctorPage extends StatelessWidget {
@@ -58,7 +59,11 @@ class DoctorList extends StatelessWidget {
               doctorReview: doctor['docReview'],
               imgRoute: doctor['imgRoute'],
               onPressed: () {
-                // Handle doctor card tap if needed
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            DoctorDetails(id: doctor['docId'])));
               },
             );
           },

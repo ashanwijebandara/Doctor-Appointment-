@@ -37,19 +37,31 @@ class _BookingPageState extends State<BookingPage> {
       String data = ModalRoute.of(context)!.settings.arguments as String;
 
       String formattedDate = DateFormat('MMMM d, yyyy').format(_currentDay);
+      String formattedTime = DateFormat('hh:mm a').format(
+        DateTime(2022, 1, 1, _currentIndex! + 9),
+      );
 
       Map<String, dynamic> appointmentData = {
         'doctorId': data,
         'uid': loggedInUser,
         'date': formattedDate,
-        'time': _currentIndex! + 9,
+        'time': formattedTime,
         "status": "upcoming",
-        
       };
 
       // Adding the appointment data to the 'appointments' collection
       try {
-        await firestore.collection('appointments').add(appointmentData);
+        DocumentReference appointmentRef =
+            await firestore.collection('appointments').add(appointmentData);
+
+        // Get the generated appointment ID
+        String appointmentId = appointmentRef.id;
+
+        // Update the 'appointmentId' field in the same document
+        await firestore
+            .collection('appointments')
+            .doc(appointmentId)
+            .update({'appointmentId': appointmentId});
 
         // Navigate to success_booking page or perform any other action
         Navigator.of(context).pushNamed('success_booking');
