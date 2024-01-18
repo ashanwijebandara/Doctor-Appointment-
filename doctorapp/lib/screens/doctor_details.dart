@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
 import 'package:doctorapp/screens/fav_doctor_page.dart';
+import 'package:doctorapp/controllers/fav_doctor_controller.dart';
 import 'package:doctorapp/utils/config.dart';
-//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../components/custom_appbar.dart';
@@ -31,6 +31,8 @@ Future<void> markAsFavorite(String userId, String doctorId) async {
 }
 
 class _DoctorDetailsState extends State<DoctorDetails> {
+  FavoriteDoctorsController favoriteDoctorsController =
+      FavoriteDoctorsController();
   bool isFav = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -47,6 +49,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             onPressed: () async {
               setState(() {
                 isFav = !isFav;
+                if (isFav) {
+                  favoriteDoctorsController.addToFavorites(widget.id);
+                } else {
+                  favoriteDoctorsController.removeFromFavorites(widget.id);
+                }
               });
               User? user = _auth.currentUser;
               if (user != null) {
@@ -148,9 +155,9 @@ class _AboutDoctorState extends State<AboutDoctor> {
       child: Column(
         children: [
           Config.spaceSmall,
-          const CircleAvatar(
+           CircleAvatar(
             radius: 55,
-            backgroundImage: AssetImage('assets/doctor_1.jpg'),
+            backgroundImage: AssetImage('$docImage'),
             backgroundColor: Colors.white,
           ),
           Config.spaceSmall,

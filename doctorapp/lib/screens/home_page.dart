@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/appoinment_cart.dart';
 import 'package:doctorapp/components/doctor_card.dart';
 import 'package:doctorapp/controllers/current_user_controller.dart';
+import 'package:doctorapp/controllers/doctor_controller.dart';
 import 'package:doctorapp/controllers/home_controller.dart';
 import 'package:doctorapp/screens/category_doctor_page.dart';
 import 'package:doctorapp/screens/doctor_details.dart';
@@ -10,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 //import 'package:get/get_core/src/get_main.dart';
 
 User? loggedInUser;
@@ -24,12 +26,30 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _auth = FirebaseAuth.instance;
   String? userName;
+  TextEditingController searchController = TextEditingController();
+  DoctorController doctorController = DoctorController();
+  var doctorList = <QueryDocumentSnapshot>[];
 
   @override
   void initState() {
     getCurrentUser();
     getUserData();
     super.initState();
+    fetchDoctors();
+  }
+
+  Future<void> fetchDoctors() async {
+    var results = await doctorController.getDoctorList();
+    setState(() {
+      doctorList = results.docs;
+    });
+  }
+
+  Future<void> searchDoctors(String query) async {
+    var results = await doctorController.searchDoctors(query);
+    setState(() {
+      doctorList = results.docs;
+    });
   }
 
   Future<void> getUserData() async {
@@ -130,7 +150,33 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
 
-                Config.spaceMedium,
+                Config.spaceSmall,
+                TextField(
+                  controller: searchController,
+                  onChanged: (query) => searchDoctors(query),
+                  decoration: InputDecoration(
+                    labelText: 'Search Doctors',
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.blue, // Set your desired icon color
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue, // Set your desired border color
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors
+                            .blue, // Set your desired focused border color
+                      ),
+                    ),
+                  ),
+                ),
+
+                Config.spaceSmall,
                 const Text(
                   'Category',
                   style: TextStyle(
