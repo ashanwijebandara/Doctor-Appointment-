@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/doctor_card.dart';
 import 'package:doctorapp/screens/doctor_details.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDoctorPage extends StatelessWidget {
@@ -26,6 +27,12 @@ class DoctorList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String getCurrentUserId() {
+      User? user = FirebaseAuth.instance.currentUser;
+      return user?.uid ?? '';
+    }
+
+    String userId = getCurrentUserId();
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection('doctors')
@@ -62,8 +69,10 @@ class DoctorList extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            DoctorDetails(id: doctor['docId'])));
+                        builder: (context) => DoctorDetails(
+                              id: doctor['docId'],
+                              userId: userId,
+                            )));
               },
             );
           },

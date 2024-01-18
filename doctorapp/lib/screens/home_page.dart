@@ -82,6 +82,12 @@ class _HomePageState extends State<HomePage> {
     Config().init(context);
     var user_controller = Get.put(CurrentUserController());
     var doctor_controller = Get.put(HomeController());
+    String getCurrentUserId() {
+      User? user = FirebaseAuth.instance.currentUser;
+      return user?.uid ?? '';
+    }
+
+    String userId = getCurrentUserId();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -225,7 +231,9 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DoctorDetails(
-                                            id: data![index]['docId'])));
+                                              id: data![index]['docId'],
+                                              userId: userId,
+                                            )));
                               },
                             );
                           }),
