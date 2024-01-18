@@ -5,8 +5,11 @@ import 'package:doctorapp/utils/config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 enum FilterStatus { upcoming, complete, cancel }
+
 class BookingPage extends StatefulWidget {
   const BookingPage({Key? key}) : super(key: key);
 
@@ -33,13 +36,15 @@ class _BookingPageState extends State<BookingPage> {
 
       String data = ModalRoute.of(context)!.settings.arguments as String;
 
+      String formattedDate = DateFormat('MMMM d, yyyy').format(_currentDay);
+
       Map<String, dynamic> appointmentData = {
         'doctorId': data,
         'uid': loggedInUser,
-        'date': _currentDay,
+        'date': formattedDate,
         'time': _currentIndex! + 9,
         "status": "upcoming",
-        // Add any other details you want to store
+        
       };
 
       // Adding the appointment data to the 'appointments' collection

@@ -140,16 +140,16 @@ class _HomePageState extends State<HomePage> {
                       children: List<Widget>.generate(medCat.length, (index) {
                         return GestureDetector(
                           onTap: () {
-              // Navigate to the new page with doctors for the selected category
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CategoryDoctorPage(
-                    category: medCat[index]['category'],
-                  ),
-                ),
-              );
-            },
+                            // Navigate to the new page with doctors for the selected category
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryDoctorPage(
+                                  category: medCat[index]['category'],
+                                ),
+                              ),
+                            );
+                          },
                           child: Card(
                               margin: EdgeInsets.only(right: 20),
                               color: Config.primaryColor,
