@@ -17,7 +17,7 @@ class _AuthPageState extends State<AuthPage> {
     Config().init(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
