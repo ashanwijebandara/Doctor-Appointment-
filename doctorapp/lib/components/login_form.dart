@@ -74,7 +74,7 @@ class _LoginFormState extends State<LoginForm> {
             fontSize: 14,
           ),
         ),
-        Config.spaceMedium,
+        Config.spaceSmall,
         Button(
             width: double.infinity,
             title: 'Sign In',

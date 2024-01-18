@@ -56,10 +56,15 @@ class ArticleListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Articles',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        title: Padding(
+          padding: const EdgeInsets.all(80.0),
+          child: Text(
+            'Articles',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_rounded),

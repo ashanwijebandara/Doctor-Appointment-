@@ -17,7 +17,7 @@ class _AuthPageState extends State<AuthPageRegister> {
     Config().init(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
         child: SafeArea(
           child: ListView(
             children: <Widget>[
@@ -67,7 +67,7 @@ class _AuthPageState extends State<AuthPageRegister> {
               ),
               Config.spaceSmall,
               RegisterForm(),
-              Config.spaceSmall,
+              Config.spaceMedium,
               Spacer(),
               Center(
                 child: Text(
