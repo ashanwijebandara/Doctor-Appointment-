@@ -19,103 +19,101 @@ class _AuthPageState extends State<AuthPageRegister> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: SafeArea(
-          child: SafeArea(
-            child: ListView(
-              children: <Widget>[
-                Center(
-                  child: Text(
-                    AppText.enText['signUp']!,
-                    style: const TextStyle(
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+          child: ListView(
+            children: <Widget>[
+              Center(
+                child: Text(
+                  AppText.enText['signUp']!,
+                  style: const TextStyle(
+                    fontFamily: 'Source Sans Pro',
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Config.spaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/');
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        textStyle: const TextStyle(
-                          fontFamily: 'Source Sans Pro',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
+              ),
+              Config.spaceSmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/');
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      textStyle: const TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
                       ),
-                      child: Text('Sign In'),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        // Navigator.of(context).pushNamed('/register');
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
-                        textStyle: const TextStyle(
-                          fontFamily: 'Source Sans Pro',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                    child: Text('Sign In'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // Navigator.of(context).pushNamed('/register');
+                    },
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                      textStyle: const TextStyle(
+                        fontFamily: 'Source Sans Pro',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                      child: Text('Sign Up'),
                     ),
-                  ],
-                ),
-                Config.spaceSmall,
-                RegisterForm(),
-                Config.spaceSmall,
-                Spacer(),
-                Center(
-                  child: Text(
-                    AppText.enText['social-login']!,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey.shade500,
-                    ),
+                    child: Text('Sign Up'),
+                  ),
+                ],
+              ),
+              Config.spaceSmall,
+              RegisterForm(),
+              Config.spaceSmall,
+              Spacer(),
+              Center(
+                child: Text(
+                  AppText.enText['social-login']!,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.grey.shade500,
                   ),
                 ),
-                Config.spaceSmall,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SocialButton(
-                        social: 'google',
-                        onPressed: () {
-                          // Handle Google button click
-                          print('Google button clicked');
-                        }),
-                    SocialButton(
-                        social: 'facebook',
-                        onPressed: () {
-                          // Handle Google button click
-                          print('Google button clicked');
-                        }),
-                    SocialButton(
-                        social: 'twitter',
-                        onPressed: () {
-                          // Handle Google button click
-                          print('Google button clicked');
-                        }),
-                    SocialButton(
-                        social: 'linkedin',
-                        onPressed: () {
-                          // Handle Google button click
-                          print('Google button clicked');
-                        }),
-                  ],
-                ),
-                Config.spaceSmall,
-                Image.asset(
-                  'assets/downpic.jpg',
-                ),
-              ],
-            ),
+              ),
+              Config.spaceSmall,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SocialButton(
+                      social: 'google',
+                      onPressed: () {
+                        // Handle Google button click
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'facebook',
+                      onPressed: () {
+                        // Handle Google button click
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'twitter',
+                      onPressed: () {
+                        // Handle Google button click
+                        print('Google button clicked');
+                      }),
+                  SocialButton(
+                      social: 'linkedin',
+                      onPressed: () {
+                        // Handle Google button click
+                        print('Google button clicked');
+                      }),
+                ],
+              ),
+              Config.spaceSmall,
+              Image.asset(
+                'assets/downpic.jpg',
+              ),
+            ],
           ),
         ),
       ),
