@@ -109,201 +109,202 @@ class _HomePageState extends State<HomePage> {
 
     String userId = getCurrentUserId();
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundImage: AssetImage('assets/profile1.jpg'),
-                    ),
-                    Config.spacehorizontal_medium,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hello,',
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFADA4A5)),
-                        ),
-                        Text(
-                          userName!,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w800,
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 15,
+          ),
+          child: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage('assets/profile1.jpg'),
+                      ),
+                      Config.spacehorizontal_medium,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hello,',
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFADA4A5)),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 100),
-                      child: ElevatedButton(
+                          Text(
+                            userName ?? '',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Spacer(),
+                      ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
                           Navigator.of(context).pushNamed('/');
                         },
                         child: const Icon(Icons.logout),
+                      )
+                    ],
+                  ),
+        
+                  Config.spaceSmall,
+                  TextField(
+                    controller: searchController,
+                    onChanged: (query) => searchDoctors(query),
+                    decoration: InputDecoration(
+                      labelText: 'Search Doctors',
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.blue, // Set your desired icon color
                       ),
-                    )
-                  ],
-                ),
-
-                Config.spaceSmall,
-                TextField(
-                  controller: searchController,
-                  onChanged: (query) => searchDoctors(query),
-                  decoration: InputDecoration(
-                    labelText: 'Search Doctors',
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.blue, // Set your desired icon color
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue, // Set your desired border color
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue, // Set your desired border color
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors
-                            .blue, // Set your desired focused border color
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors
+                              .blue, // Set your desired focused border color
+                        ),
                       ),
                     ),
                   ),
-                ),
-
-                Config.spaceSmall,
-                const Text(
-                  'Category',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+        
+                  Config.spaceSmall,
+                  const Text(
+                    'Category',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Config.spaceSmall,
-                SizedBox(
-                  height: Config.heightsize * 0.07,
-                  child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: List<Widget>.generate(medCat.length, (index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // Navigate to the new page with doctors for the selected category
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CategoryDoctorPage(
-                                  category: medCat[index]['category'],
+                  Config.spaceSmall,
+                  SizedBox(
+                    height: Config.heightsize * 0.07,
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: List<Widget>.generate(medCat.length, (index) {
+                          return GestureDetector(
+                            onTap: () {
+                              // Navigate to the new page with doctors for the selected category
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CategoryDoctorPage(
+                                    category: medCat[index]['category'],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                          child: Card(
-                              margin: EdgeInsets.only(right: 20),
-                              color: Config.primaryColor,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    FaIcon(
-                                      medCat[index]['icon'],
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      medCat[index]['category'],
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                              );
+                            },
+                            child: Card(
+                                margin: EdgeInsets.only(right: 20),
+                                color: Config.primaryColor,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      FaIcon(
+                                        medCat[index]['icon'],
                                         color: Colors.white,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        );
-                      })),
-                ),
-                Config.spaceSmall,
-                const Text(
-                  'Appoinment Today',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        medCat[index]['category'],
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          );
+                        })),
                   ),
-                ),
-                Config.spaceSmall,
-                AppoinmentCard(),
-                Config.spaceSmall,
-                const Text(
-                  'Top Doctors',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                  Config.spaceSmall,
+                  const Text(
+                    'Appoinment Today',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                // doctor list
-                Config.spaceSmall,
-                FutureBuilder<QuerySnapshot>(
-                    future: doctor_controller.getDoctorList(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        var data = snapshot.data?.docs;
-                        // log(data!.length.toString());
-                        return Column(
-                          children: List.generate(data!.length , (index) {
-                            return DoctorCard(
-                              doctorName: data[index]['doc_name'],
-                              doctorCategory: data[index]['docCategory'],
-                              doctorHospital: data[index]['docAddress'],
-                              doctorRating: data[index]['docRating'],
-                              doctorReview: data[index]['docReview'],
-                              imgRoute: data[index]['imgRoute'],
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DoctorDetails(
-                                              id: data[index]['docId'],
-                                              userId: userId,
-                                            )));
-                              },
-                            );
-                          }),
-                        );
-                      }
-                    }),
-                // Column(
-                //   children: List.generate(5, (index) {
-                //     return DoctorCard(
-                //       route: 'doc_details',
-                //     );
-                //   }),
-                // ),
-              ],
+                  Config.spaceSmall,
+                  const AppoinmentCard(),
+                  Config.spaceSmall,
+                  const Text(
+                    'Top Doctors',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // doctor list
+                  Config.spaceSmall,
+                  FutureBuilder<QuerySnapshot>(
+                      future: doctor_controller.getDoctorList(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          var data = snapshot.data?.docs;
+                          // log(data!.length.toString());
+                          return Column(
+                            children: List.generate(data!.length, (index) {
+                              return DoctorCard(
+                                doctorName: data[index]['doc_name'],
+                                doctorCategory: data[index]['docCategory'],
+                                doctorHospital: data[index]['docAddress'],
+                                doctorRating: data[index]['docRating'],
+                                doctorReview: data[index]['docReview'],
+                                imgRoute: data[index]['imgRoute'],
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DoctorDetails(
+                                                id: data[index]['docId'],
+                                                userId: userId,
+                                              )));
+                                },
+                              );
+                            }),
+                          );
+                        }
+                      }),
+                  // Column(
+                  //   children: List.generate(5, (index) {
+                  //     return DoctorCard(
+                  //       route: 'doc_details',
+                  //     );
+                  //   }),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),

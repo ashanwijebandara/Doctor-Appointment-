@@ -34,7 +34,7 @@ class DoctorCard extends StatelessWidget {
       ),
       height: 150,
       child: GestureDetector(
-        child: Card(
+        child:  Card(
           elevation: 5,
           color: Color(0xFFFAFAFA),
           child: Row(children: [

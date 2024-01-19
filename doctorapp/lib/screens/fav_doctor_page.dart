@@ -23,41 +23,46 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
     }
 
     String userId = getCurrentUserId();
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Favourite Doctors'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Text(
-              'My Favourite Doctors',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
             Expanded(
               child: StreamBuilder<DocumentSnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('users')
-                    .doc(userId) // Use the actual user ID here
+                    .doc(userId)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
 
                   if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
+                    return Center(child: Text('Error: ${snapshot.error}'));
                   }
 
                   if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Text('No favorite doctors.');
+                    return Center(child: Text('No favorite doctors.'));
                   }
 
-                  List<dynamic>? favoriteDoctors =
-                      snapshot.data!.get('favoriteDoctors');
+                  Map<String, dynamic>? userData =
+                      snapshot.data!.data() as Map<String, dynamic>?;
+
+                  if (userData == null ||
+                      !userData.containsKey('favoriteDoctors')) {
+                    return Center(child: Text('No favorite doctors.'));
+                  }
+
+                  List<dynamic>? favoriteDoctors = userData['favoriteDoctors'];
 
                   if (favoriteDoctors == null || favoriteDoctors.isEmpty) {
-                    return Text('No favorite doctors.');
+                    return Center(child: Text('No favorite doctors.'));
                   }
 
                   return ListView.builder(
@@ -69,22 +74,22 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
                         builder: (context, doctorSnapshot) {
                           if (doctorSnapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return CircularProgressIndicator();
+                            return Center(child: CircularProgressIndicator());
                           }
 
                           if (doctorSnapshot.hasError) {
-                            return Text('Error: ${doctorSnapshot.error}');
+                            return Center(
+                                child: Text('Error: ${doctorSnapshot.error}'));
                           }
 
                           if (!doctorSnapshot.hasData ||
                               !doctorSnapshot.data!.exists) {
-                            return Text('Doctor not found.');
+                            return Center(child: Text('Doctor not found.'));
                           }
 
                           // Display the details of the favorite doctor
                           Map<String, dynamic> doctorData = doctorSnapshot.data!
                               .data() as Map<String, dynamic>;
-                          // String docName = doctorData['doc_name'];
 
                           return DoctorCard(
                             doctorName: doctorData['doc_name'],
