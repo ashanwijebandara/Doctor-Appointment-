@@ -1,3 +1,5 @@
+import 'package:doctorapp/components/doctor_card.dart';
+import 'package:doctorapp/screens/doctor_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -82,11 +84,26 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
                           // Display the details of the favorite doctor
                           Map<String, dynamic> doctorData = doctorSnapshot.data!
                               .data() as Map<String, dynamic>;
-                          String docName = doctorData['doc_name'];
+                          // String docName = doctorData['doc_name'];
 
-                          return ListTile(
-                            title: Text(docName),
-                            // Add more details as needed
+                          return DoctorCard(
+                            doctorName: doctorData['doc_name'],
+                            doctorCategory: doctorData['docCategory'],
+                            doctorHospital: doctorData['docAddress'],
+                            doctorRating: doctorData['docRating'],
+                            doctorReview: doctorData['docReview'],
+                            imgRoute: doctorData['imgRoute'],
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DoctorDetails(
+                                    id: doctorData['docId'],
+                                    userId: userId,
+                                  ),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

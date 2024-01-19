@@ -34,6 +34,7 @@ class AuthController extends GetxController {
       errorMessageLog = ''; // Reset error message if login is successful
     } on FirebaseAuthException catch (e) {
       errorMessageLog = 'Sorry, your password or username is incorrect.';
+      print(e);
     }
   }
 

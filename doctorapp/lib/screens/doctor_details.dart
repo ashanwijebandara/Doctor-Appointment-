@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/button.dart';
-import 'package:doctorapp/screens/fav_doctor_page.dart';
+// import 'package:doctorapp/screens/fav_doctor_page.dart';
 import 'package:doctorapp/controllers/fav_doctor_controller.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -60,11 +60,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 // Use the actual user ID
                 String userId = user.uid;
                 await markAsFavorite(userId, widget.id);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => Favourite_Doctor_Page(),
-                  ),
-                );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => Favourite_Doctor_Page(),
+                //   ),
+                // );
               } else {
                 print('User not authenticated.');
                 // Handle the case where the user is not authenticated.

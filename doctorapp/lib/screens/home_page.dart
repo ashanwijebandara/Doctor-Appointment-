@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/components/appoinment_cart.dart';
 import 'package:doctorapp/components/doctor_card.dart';
-import 'package:doctorapp/controllers/current_user_controller.dart';
+// import 'package:doctorapp/controllers/current_user_controller.dart';
 import 'package:doctorapp/controllers/doctor_controller.dart';
 import 'package:doctorapp/controllers/home_controller.dart';
 import 'package:doctorapp/screens/category_doctor_page.dart';
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
-    var user_controller = Get.put(CurrentUserController());
+    // var user_controller = Get.put(CurrentUserController());
     var doctor_controller = Get.put(HomeController());
     String getCurrentUserId() {
       User? user = FirebaseAuth.instance.currentUser;
@@ -147,6 +147,16 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 100),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.of(context).pushNamed('/');
+                        },
+                        child: const Icon(Icons.logout),
+                      ),
+                    )
                   ],
                 ),
 
@@ -264,20 +274,20 @@ class _HomePageState extends State<HomePage> {
                         var data = snapshot.data?.docs;
                         // log(data!.length.toString());
                         return Column(
-                          children: List.generate(data!.length ?? 0, (index) {
+                          children: List.generate(data!.length , (index) {
                             return DoctorCard(
-                              doctorName: data![index]['doc_name'],
-                              doctorCategory: data![index]['docCategory'],
-                              doctorHospital: data![index]['docAddress'],
-                              doctorRating: data![index]['docRating'],
-                              doctorReview: data![index]['docReview'],
-                              imgRoute: data![index]['imgRoute'],
+                              doctorName: data[index]['doc_name'],
+                              doctorCategory: data[index]['docCategory'],
+                              doctorHospital: data[index]['docAddress'],
+                              doctorRating: data[index]['docRating'],
+                              doctorReview: data[index]['docReview'],
+                              imgRoute: data[index]['imgRoute'],
                               onPressed: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DoctorDetails(
-                                              id: data![index]['docId'],
+                                              id: data[index]['docId'],
                                               userId: userId,
                                             )));
                               },

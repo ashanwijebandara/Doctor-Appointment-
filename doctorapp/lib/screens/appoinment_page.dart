@@ -524,6 +524,7 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
   }
 }
 
+// ignore: must_be_immutable
 class ScheduleCard extends StatelessWidget {
   ScheduleCard({required this.sheduleDate, required this.sheduleTime});
   String sheduleDate;
