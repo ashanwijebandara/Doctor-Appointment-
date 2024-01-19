@@ -63,9 +63,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 'My Profile',
                 style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.black,
                 ),
               ),
               Config.spaceSmall,

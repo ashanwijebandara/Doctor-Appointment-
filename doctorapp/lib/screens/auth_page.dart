@@ -106,7 +106,7 @@ class _AuthPageState extends State<AuthPage> {
                       }),
                 ],
               ),
-              Config.spaceSmall,
+              Config.spaceMedium,
               Image.asset('assets/downpic.jpg'),
             ],
           ),
