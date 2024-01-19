@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doctorapp/utils/config.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+User? loggedInUser;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key});
@@ -10,6 +13,40 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final _auth = FirebaseAuth.instance;
+  String? name;
+  String? age;
+  String? gender;
+  String? address;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  Future<void> getUserData() async {
+    loggedInUser = _auth.currentUser!;
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(loggedInUser?.uid)
+        .get();
+
+    setState(() {
+      name = userSnapshot['username'].toString();
+
+      if (userSnapshot['age'] == null) {
+        age = 'Not Set';
+        gender = 'Not Set';
+        address = 'Not Set';
+      } else {
+        age = userSnapshot['age'].toString();
+        gender = userSnapshot['gender'].toString();
+        address = userSnapshot['address'].toString();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,8 +112,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Config.spacehorizontal_medium,
-                                const Text(
-                                  'Jenny Tan',
+                                Text(
+                                  name!,
                                   style: TextStyle(fontSize: 15),
                                 )
                               ],
@@ -90,8 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Config.spacehorizontal_medium,
-                                const Text(
-                                  '23',
+                                Text(
+                                  age!,
                                   style: TextStyle(fontSize: 15),
                                 )
                               ],
@@ -105,8 +142,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Config.spacehorizontal_medium,
-                                const Text(
-                                  'Female',
+                                Text(
+                                  gender!,
                                   style: TextStyle(fontSize: 15),
                                 )
                               ],
@@ -120,15 +157,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   style: TextStyle(fontSize: 16),
                                 ),
                                 Config.spacehorizontal_medium,
-                                const Text(
-                                  'Jalan 1/1 , Taman Sri Pulai ',
+                                Text(
+                                  address!,
                                   style: TextStyle(fontSize: 15),
                                 )
                               ],
                             ),
                             OutlinedButton(
-                              onPressed: () async {
-                                await FirebaseAuth.instance.signOut();
+                              onPressed: () {
                                 Navigator.of(context).pushNamed('edit_profile');
                               },
                               style: OutlinedButton.styleFrom(

@@ -20,6 +20,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(AuthController());
+    
     return Form(
       key: _formKey,
       child:
@@ -68,7 +69,7 @@ class _LoginFormState extends State<LoginForm> {
         ),
         Config.spaceSmall,
         Text(
-          controller.errorMessage,
+          controller.errorMessageLog,
           style: TextStyle(
             color: Colors.red,
             fontSize: 14,
@@ -84,9 +85,11 @@ class _LoginFormState extends State<LoginForm> {
                 Navigator.of(context).pushNamed('main');
               } else {
                 // Clear the error message before displaying a new one
-                controller.errorMessage = '';
+                controller.errorMessageLog = '';
                 // Show error message under the password field
-                setState(() {});
+                setState(() {
+                  controller.errorMessageLog = 'Incorrect username or password.';
+                });
               }
               // Navigator.of(context).pushNamed('main');
             },

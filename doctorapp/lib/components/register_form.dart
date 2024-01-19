@@ -19,6 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(AuthController());
+
     return Form(
       key: _formKey,
       child:
@@ -80,6 +81,14 @@ class _RegisterFormState extends State<RegisterForm> {
                         ))),
         ),
         Config.spaceSmall,
+        Text(
+          controller.errorMessageReg,
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 14,
+          ),
+        ),
+        Config.spaceSmall,
         Button(
             width: double.infinity,
             title: 'Sign Up',
@@ -87,11 +96,9 @@ class _RegisterFormState extends State<RegisterForm> {
               await controller.signupUser();
               if (controller.userCredential != null) {
                 Navigator.of(context).pushNamed('main');
+              } else {
+                // display error message user already exists
               }
-              /*
-              await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                  email: _emailController.text, password: _passController.text);*/
-              // Navigator.of(context).pushNamed('/');
             },
             disable: false),
       ]),

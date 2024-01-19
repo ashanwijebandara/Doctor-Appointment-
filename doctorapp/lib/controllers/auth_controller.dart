@@ -18,29 +18,44 @@ class AuthController extends GetxController {
       }
     });
   }
-  String errorMessage = '';
+
+  String errorMessageReg = '';
+  String errorMessageLog = '';
   /*
   loginUser() async {
     userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, password: passwordController.text);
   }*/
-   loginUser() async {
+  loginUser() async {
     try {
       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
-      errorMessage = ''; // Reset error message if login is successful
+      errorMessageLog = ''; // Reset error message if login is successful
     } on FirebaseAuthException catch (e) {
-      errorMessage = 'Sorry, your password or username is incorrect.';
+      errorMessageLog = 'Sorry, your password or username is incorrect.';
     }
   }
 
   signupUser() async {
-    userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text, password: passwordController.text);
+    try {
+      userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
 
-    await storeUserData(userCredential!.user!.uid, usernameController.text,
-        emailController.text);
+      // If registration is successful, store user data
+      await storeUserData(
+        userCredential!.user!.uid,
+        usernameController.text,
+        emailController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        errorMessageReg = 'User already exists! Try logging in.';
+      } else {
+        errorMessageReg = 'Registration failed. Please try again later.';
+      }
+    }
   }
 
   storeUserData(String uid, String username, String email) async {
@@ -48,6 +63,9 @@ class AuthController extends GetxController {
     await store.set({
       'username': username,
       'email': email,
+      'age': 'Not Set',
+      'gender': 'Not Set',
+      'address': 'Not Set',
     });
   }
 

@@ -430,7 +430,7 @@ class InfoCard extends StatelessWidget {
             ),
             Text(
               value,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Config.primaryColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w800,
