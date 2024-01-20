@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                       )
                     ],
                   ),
-        
+
                   Config.spaceSmall,
                   TextField(
                     controller: searchController,
@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-        
+
                   Config.spaceSmall,
                   const Text(
                     'Category',
@@ -202,7 +202,6 @@ class _HomePageState extends State<HomePage> {
                         children: List<Widget>.generate(medCat.length, (index) {
                           return GestureDetector(
                             onTap: () {
-                              // Navigate to the new page with doctors for the selected category
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -263,18 +262,20 @@ class _HomePageState extends State<HomePage> {
                   // doctor list
                   Config.spaceSmall,
                   FutureBuilder<QuerySnapshot>(
-                      future: doctor_controller.getDoctorList(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else {
-                          var data = snapshot.data?.docs;
-                          // log(data!.length.toString());
-                          return Column(
-                            children: List.generate(data!.length, (index) {
+                    future: doctor_controller.getDoctorList(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        var data = snapshot.data?.docs;
+
+                        return Column(
+                          children: List.generate(
+                            data!.length,
+                            (index) {
                               return DoctorCard(
                                 doctorName: data[index]['doc_name'],
                                 doctorCategory: data[index]['docCategory'],
@@ -284,18 +285,22 @@ class _HomePageState extends State<HomePage> {
                                 imgRoute: data[index]['imgRoute'],
                                 onPressed: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DoctorDetails(
-                                                id: data[index]['docId'],
-                                                userId: userId,
-                                              )));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => DoctorDetails(
+                                        id: data[index]['docId'],
+                                        userId: userId,
+                                      ),
+                                    ),
+                                  );
                                 },
                               );
-                            }),
-                          );
-                        }
-                      }),
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
                   // Column(
                   //   children: List.generate(5, (index) {
                   //     return DoctorCard(

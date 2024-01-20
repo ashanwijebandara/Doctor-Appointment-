@@ -500,11 +500,11 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
           .doc(appointmentId)
           .update({'status': 'complete'});
 
-      // Fetch updated user appointments and update the state
+     
       await fetchUserAppointments();
     } catch (e) {
       print('Error completing appointment: $e');
-      // Handle error
+     
     }
   }
 
@@ -515,11 +515,11 @@ class _AppoinmentPageState extends State<AppoinmentPage> {
           .doc(appointmentId)
           .update({'status': 'cancel'});
 
-      // Fetch updated user appointments and update the state
+      
       await fetchUserAppointments();
     } catch (e) {
       print('Error canceling appointment: $e');
-      // Handle error
+      
     }
   }
 }

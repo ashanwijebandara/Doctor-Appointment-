@@ -41,7 +41,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Doctor Details',
-        icon: FaIcon(
+        icon: const FaIcon(
           Icons.arrow_back_ios_rounded,
         ),
         actions: [
@@ -57,7 +57,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               });
               User? user = _auth.currentUser;
               if (user != null) {
-                // Use the actual user ID
+                
                 String userId = user.uid;
                 await markAsFavorite(userId, widget.id);
                 // Navigator.of(context).push(
@@ -67,7 +67,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 // );
               } else {
                 print('User not authenticated.');
-                // Handle the case where the user is not authenticated.
+                
               }
             },
             icon: FaIcon(

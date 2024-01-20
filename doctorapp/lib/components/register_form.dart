@@ -97,7 +97,7 @@ class _RegisterFormState extends State<RegisterForm> {
               if (controller.userCredential != null) {
                 Navigator.of(context).pushNamed('main');
               } else {
-                // display error message user already exists
+                
               }
             },
             disable: false),

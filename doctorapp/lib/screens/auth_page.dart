@@ -98,7 +98,7 @@ class _AuthPageState extends State<AuthPage> {
                     SocialButton(
                         social: 'facebook',
                         onPressed: () {
-                          // Handle Google button click
+                         
                           print('facebook button clicked');
                         }),
                     SocialButton(

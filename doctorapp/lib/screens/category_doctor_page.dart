@@ -81,12 +81,14 @@ class DoctorList extends StatelessWidget {
               imgRoute: doctor['imgRoute'],
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DoctorDetails(
-                              id: doctor['docId'],
-                              userId: userId,
-                            )));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DoctorDetails(
+                      id: doctor['docId'],
+                      userId: userId,
+                    ),
+                  ),
+                );
               },
             );
           },

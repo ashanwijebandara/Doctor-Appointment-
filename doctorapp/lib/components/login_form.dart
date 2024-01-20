@@ -84,9 +84,9 @@ class _LoginFormState extends State<LoginForm> {
               if (controller.userCredential != null) {
                 Navigator.of(context).pushNamed('main');
               } else {
-                // Clear the error message before displaying a new one
+                
                 controller.errorMessageLog = '';
-                // Show error message under the password field
+                
                 setState(() {
                   controller.errorMessageLog = 'Incorrect username or password.';
                 });

@@ -87,7 +87,6 @@ class _Favourite_Doctor_PageState extends State<Favourite_Doctor_Page> {
                             return Center(child: Text('Doctor not found.'));
                           }
 
-                          // Display the details of the favorite doctor
                           Map<String, dynamic> doctorData = doctorSnapshot.data!
                               .data() as Map<String, dynamic>;
 

@@ -16,11 +16,11 @@ class _startingPageState extends State<StartingPage> {
     AuthController().isUserAlreadyLoggedIn();
     super.initState();
 
-    // Simulate a loading delay
-    Future.delayed(Duration(seconds: 5), () {
-      // After the delay, navigate to the home screen
+    
+    Future.delayed(const Duration(seconds: 5), () {
+      
       Navigator.of(context).pushNamed('/');
-      //Navigator.pushReplacementNamed(context, '/');
+      
     });
   }
 
@@ -48,7 +48,7 @@ class _startingPageState extends State<StartingPage> {
                   shaderCallback: (Rect bounds) {
                     return Config.primaryGradient_font.createShader(bounds);
                   },
-                  child: Text(
+                  child: const Text(
                     "MEDIC",
                     style: TextStyle(
                       fontSize: 70,
@@ -57,7 +57,7 @@ class _startingPageState extends State<StartingPage> {
                     ),
                   ),
                 ),
-                Text(
+                const Text(
                   "HEALTH CARE",
                   style: TextStyle(
                     color: Color.fromARGB(255, 127, 147, 157),
@@ -67,7 +67,7 @@ class _startingPageState extends State<StartingPage> {
                     wordSpacing: 5.0,
                   ),
                 ),
-                Text(
+                const Text(
                   "FAMILY DOCTOR",
                   style: TextStyle(
                     color: Color.fromARGB(255, 180, 200, 210),
@@ -79,22 +79,7 @@ class _startingPageState extends State<StartingPage> {
               ],
             ),
           ),
-          /*
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(140.0),
-              bottomRight: Radius.circular(200.0),
-            ),
-            child: Container(
-              width: double.infinity,
-              child: Image.asset(
-                "assets/Medic.png",
-                fit: BoxFit.cover,
-                height: 500.0,
-              ),
-            ),
-          ),
-          */
+          
           const SizedBox(
             height: 30,
           ),
@@ -117,8 +102,8 @@ class _startingPageState extends State<StartingPage> {
             ],
           ),
           */
-          SizedBox(height: 50.0),
-          Center(
+          const SizedBox(height: 50.0),
+          const Center(
             child: CircularProgressIndicator(
               color: Config.primaryColor,
             ),

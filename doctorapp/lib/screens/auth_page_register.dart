@@ -97,19 +97,19 @@ class _AuthPageState extends State<AuthPageRegister> {
                     SocialButton(
                         social: 'facebook',
                         onPressed: () {
-                          // Handle Google button click
+                         
                           print('facebook button clicked');
                         }),
                     SocialButton(
                         social: 'twitter',
                         onPressed: () {
-                          // Handle Google button click
+                          
                           print('twitter button clicked');
                         }),
                     SocialButton(
                         social: 'linkedin',
                         onPressed: () {
-                          // Handle Google button click
+                         
                           print('linkedin button clicked');
                         }),
                   ],

@@ -32,7 +32,7 @@ class AuthController extends GetxController {
       userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
 
-      errorMessageLog = ''; // Reset error message if login is successful
+      errorMessageLog = ''; 
     } on FirebaseAuthException catch (e) {
       errorMessageLog = 'Sorry, your password or username is incorrect.';
       print(e);
@@ -45,7 +45,7 @@ class AuthController extends GetxController {
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text);
 
-      // If registration is successful, store user data
+      
       await storeUserData(
         userCredential!.user!.uid,
         usernameController.text,
